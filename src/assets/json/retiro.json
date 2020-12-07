@@ -1,0 +1,14 @@
+{
+    "data": [{
+            "nroAR": "0025",
+            "ctnBultos": "zzzzzzzzzzzzzzz",
+            "fechaRetiro": "dd/mm/aaaa",
+            "horaRetiro": "hh:mm",
+            "turno": "zzzzzzzz",
+            "uNegocio": "xxxxxxxxxxx",
+            "local": "zzzzzzzzzzzzzzz"
+        }
+       
+
+    ]
+}

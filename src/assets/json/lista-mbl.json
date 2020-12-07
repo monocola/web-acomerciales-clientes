@@ -1,0 +1,8 @@
+{
+  "data":[
+    {"archivo":"Cargacomision_nueva.xlsx","mbl":"COM0901","envio":"10 Feb 2020","fecha":"10 Feb 2020","estado": "Aceptado"},
+    {"archivo":"Cargacomision_nueva.xlsx","mbl":"COM0903","envio":"10 Feb 2020","fecha":"10 Feb 2020","estado": "Procesando"},
+    {"archivo":"Cargacomision_nueva.xlsx","mbl":"COM0904","envio":"10 Feb 2020","fecha":"10 Feb 2020","estado": "Culminado"},
+    {"archivo":"Cargacomision_nueva.xlsx","mbl":"COM0905","envio":"10 Feb 2020","fecha":"10 Feb 2020","estado": "Rechazado"}
+  ]
+}

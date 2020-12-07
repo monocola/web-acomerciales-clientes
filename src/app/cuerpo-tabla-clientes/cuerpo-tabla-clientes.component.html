@@ -1,0 +1,111 @@
+<div class="col-lg-12 mb-4">
+    <div class="card br-15 bs-6 pr-1 pl-1">
+        <div class="card-body" *ngFor="let retiro of retirosP; let i = index;" [ngClass]="{ 'disabled': i == 3 }">
+            <div class="row position-relative bs-10 first lista justify-content-center align-items-center" [id]="'collapse'+ i" [ngClass]="{ 'row-par': (i+1)%2 }">
+                <div class="border-right body-content lista-row position-relative h-auto " [style]="{ width: retiro.row[0].col }">
+                    <span class="pl-3 brk-w">{{ retiro.nroAR }}</span></div>
+                <div class="border-right body-content lista-row justify-content-center h-auto " [style]="{ width: retiro.row[1].col }"><span class="brk-w">{{ retiro.ctnBultos }}</span></div>
+                <div class="border-right body-content lista-row justify-content-center h-auto " [style]="{ width: retiro.row[2].col }"><span class="brk-w">{{ retiro.fechaRetiro }}</span></div>
+                <div class="border-right body-content lista-row justify-content-center h-auto" [style]="{ width: retiro.row[3].col }"><span class="brk-w">{{ retiro.horaRetiro }}</span>
+                </div>
+                <div class="border-right body-content lista-row justify-content-center h-auto" [style]="{ width: retiro.row[4].col }">
+                    <span class="brk-w">{{ retiro.turno }}</span>
+                </div>
+               
+
+                <div class="text-center lista-actions btn-top " [style]="{ width: retiro.row[5].col }">
+                    <button class="btn btn-light " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ico-more class="ico-secondary"></ico-more>
+          </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item" type="button" data-toggle="collapse" [attr.data-target]="'#collapseOrden' + i " [ngClass]="{'disabled-menu': disabled == true && i == 3}" (click)="open('collapse' + i )" aria-expanded="true" [attr.aria-controls]="'collapseOrden' + i"
+                            type="button">
+              <ico-eye class="ico-menu mr-2" [ngClass]="{'ico-primary': disabled && i == 3}"></ico-eye>
+              Ver Detalle
+            </button>
+            <button class="dropdown-item" (click)="showExonResgis()" [ngClass]="{'disabled-menu': disabled == true && i == 3}">
+              <ico-edit class="ico-menu mr-2" [ngClass]="{'ico-primary': disabled && i == 3}"></ico-edit>
+              Editar Registro
+            </button>
+            
+
+                    </div>
+                </div>
+                <div class="text-center lista-collapse btn-top ">
+                    <button class="btn btn-light collapsed" data-toggle="collapse" aria-expanded="false" [attr.data-target]="'#retiro-' + i " (click)="collapse($event)">
+            <i class="pi pi-chevron-down"></i>
+          </button>
+                </div>
+                <div id="collapseOrden{{ i }}" class="collapse animate-all" [attr.data-parent]="'#collapse'+ i">
+                    <div class="card-body card-collapse">
+                      <!--   <app-detalle-exoneracion (show)="close('collapse' + i, 'collapseOrden' + i)"></app-detalle-exoneracion> -->
+                    </div>
+                </div>
+
+                <!-- Card Mobile Registro  -->
+                <div class="collapse lista-collapse-body" *ngIf="isMobile" [id]="'retiro-' + i" data-toggle="collapse" aria-expanded="false">
+                    <div class="card-mobile">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-weight-bold">N° AR</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ retiro.nroAR }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-weight-bold">CTN/ Bultos Programación</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ retiro.ctnBultos }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-weight-bold">Fecha Retiro</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ retiro.fechaRetiro }}
+                                    <a class="tooltips bottom arrow-bluegray">
+                                        <ico-timer class="ico-blugray"></ico-timer>
+                                        <span class="text-white sm bg-bluegray"> {{ retiro.horaRetiro }}</span>
+                                    </a>
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-weight-bold">Turno</p>
+                            </div>
+                            <div class="col-6">
+                                <p> {{ retiro.turno }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-weight-bold">U. Negocio</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ retiro.uNegocio }} </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="font-weight-bold">Local</p>
+                            </div>
+                            <div class="col-6">
+                                <p>{{ retiro.local }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+      <!--   <lista-mas></lista-mas> -->
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="row mb-2 ">
+    <div class="col-lg-12 col-6 -title">
+        <h1 class="title content-title mb-0 desktop-title">{{ titulo }}</h1>
+    </div>
+</div>
+<div class="row">
+    <app-encabezado-clientes [header]="lista" [fact]="false"></app-encabezado-clientes>
+    <app-cuerpo-tabla-clientes [content]="retiros"></app-cuerpo-tabla-clientes>
+</div>
+

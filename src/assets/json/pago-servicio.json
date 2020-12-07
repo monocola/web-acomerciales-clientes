@@ -1,0 +1,19 @@
+{
+  "data":[
+    {"servicio":"Almacenes LCL", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Gastos documentarios", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Sobre costo portuario", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Almacenes LCL", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Gastos documentarios", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Sobre costo portuario", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Almacenes LCL", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Gastos documentarios", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Sobre costo portuario", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Almacenes LCL", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Gastos documentarios", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Sobre costo portuario", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Almacenes LCL", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Gastos documentarios", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"},
+    {"servicio":"Sobre costo portuario", "cantidad": "463 UNID", "dias": 186, "tarifa":  "$ 45.214.00", "igv": "$ 5.856.00", "monto": "$ 157.50", "liquidacion":  "$ 157.50", "estado": "pendiente"}
+  ]
+}

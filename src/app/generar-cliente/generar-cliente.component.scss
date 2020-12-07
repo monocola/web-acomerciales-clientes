@@ -1,0 +1,111 @@
+@import "../../assets/scss/01-elements/variables";
+@import "../../assets/scss/01-elements/mixins";
+.step-progress {
+    border: none;
+    background: #FFFFFF;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+    border-radius: 7px;
+    .step-slider {
+        width: 100%;
+        flex-wrap: wrap;
+        display: flex;
+        background: $background;
+        padding: 1.25rem;
+        .step-slider-item {
+            position: relative;
+            float: left;
+            display: flex;
+            align-items: center;
+            padding-right: 2.5rem;
+            &.active {
+                .step {
+                    &-title,
+                    &-icon {
+                        color: $secondary-color;
+                    }
+                }
+            }
+            .step-icon {
+                position: absolute;
+                right: 0;
+            }
+            .step-title {
+                font-family: $font-bold;
+                font-weight: bold;
+                color: $black-1
+            }
+        }
+    }
+}
+
+.step-content {
+    padding: 16px 0;
+    min-height: 400px;
+    &-foot {
+        text-align: right;
+        button {
+            border: 0;
+            padding: 8px 16px;
+            background-color: #CFD8DC;
+            font-size: 14px;
+            border-radius: 3px;
+            outline: 0;
+            &:active {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+            &.out {
+                display: none;
+            }
+            &.disable {
+                background-color: #ECEFF1;
+            }
+            &.active {
+                background-color: #00ACC1;
+                color: white;
+            }
+        }
+    }
+    &-body {
+        padding: 16px 0;
+        text-align: center;
+        font-size: 18px;
+        min-height: inherit;
+        max-height: inherit;
+        &.out {
+            display: none;
+        }
+    }
+}
+
+.card {
+    margin: auto 7px;
+    &-body {
+        padding: 0.35rem;
+        &.body {
+            margin: auto 10px;
+        }
+    }
+}
+
+.tpp-close {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+@include mq('tablet', max) {
+    .step-content {
+        &-body {
+            min-height: inherit;
+            max-height: inherit;
+        }
+    }
+    .step-progress {
+        .step-slider {
+            .step-slider-item {
+                padding-left: .5rem !important;
+                padding-bottom: .5rem;
+            }
+        }
+    }
+}

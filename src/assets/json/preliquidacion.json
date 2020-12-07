@@ -1,0 +1,13 @@
+{
+  "data":[
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Gastos documentarios","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Sobre costo portuario","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"},
+    {"servicio":"Almacenes LCL","cantidad":"463 UNID","dias":"15","tarifa":"s/ 45.214.00","monto": "s/ 5.856.00", "igv": "s/ 157.50", "subtotal":  "S/ 300.00"}
+  ]}
