@@ -1,0 +1,17 @@
+<div class="card pr-1 pl-1 notification  mb-3" [ngClass]="{
+    'notification-green': notificacion.type === 'success',
+    'notification-yellow': notificacion.type === 'warning'
+    }"
+         [ngStyle]="{ 'display': notificacion.show ? 'block': 'none'}"
+    >
+      <div class="card-body body-notification row">
+        <ico-close class="col-sm-1 ico-primary ico-close" (click)="closeNotificacion()" *ngIf="closable"></ico-close>
+        <div class="col-sm-11 d-flex notification-body"  >
+          <div class="d-flex pb-1" *ngFor="let m of notificacion.message">
+            <ico-check *ngIf="notificacion.type === 'success'" class="ico-green"></ico-check>
+            <ico-alert *ngIf="notificacion.type === 'warning'" class="ico-yellow"></ico-alert>
+            <p > {{ m.mensaje }} </p>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,21 @@
+.body-notification {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .notification-body {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+}
+
+.notification {
+    .ico-close {
+        top: auto;
+        display: flex;
+        position: inherit;
+        right: auto;
+        justify-content: flex-end;
+    }
+}

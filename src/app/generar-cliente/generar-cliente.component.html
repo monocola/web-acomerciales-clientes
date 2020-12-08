@@ -4,7 +4,7 @@
             <p class="tpp-close">
                 <ico-close class="ico-primary ico-close pointer"></ico-close>
             </p>
-            <h1 class="modal-title">Registrar Cliente {{ pestana }}</h1>
+            <h1 class="modal-title">Registrar Cliente</h1>
         </div>
     </div>
     <div class="row d-flex justify-content-center">
@@ -27,18 +27,23 @@
                 </div>
 
             </div>
+
+            <p>mensaje: {{ tipoDocumento }}</p>
             <div class="step-content w-100">
+                <div class="container">
+                    <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
+                </div>
                 <div id="bodyDatosGenerales" class="step-content-body">
                 <app-generar-cliente-datos-generales></app-generar-cliente-datos-generales>
                 </div>
                 <div id="bodySap" class="step-content-body">
-                  step2 
+                 <app-generar-cliente-datos-sap></app-generar-cliente-datos-sap>
                 </div>
                 <div id="bodyComercial" class="step-content-body">
-                  step3 
+                  <app-generar-cliente-datos-comerciales></app-generar-cliente-datos-comerciales>
                   </div>
                 <div id="bobyFinanciera" class="step-content-body">
-                  step4 
+                  <app-generar-cliente-datos-financiera></app-generar-cliente-datos-financiera>
                 </div>  
 
             </div>
@@ -46,12 +51,14 @@
                 <div class="">
                     <div class="row justify-content-center">
                         <div class="col-md-5  col-12 text-left">
-                            <button type="button" class="btn btn-outline-primary" name="cancelar">Cancelar</button>
+                            <button type="button" class="btn btn-outline-primary  mb-1 active mr-3" name="cancelar">Cancelar</button>
+                            <button id="subirarchivo" type="button" class="btn btn-primary" name="subir" (click)="abrirModalConfirmacion()">Adjuntar Archivo</button>
                         </div>
                         <div class="col-md-6 col-12 text-right pt-3">
                             <button id="anterior" type="button" class="btn btn-bluegray  col-12  col-md-4 mb-3 active mr-3" name="prev" (click)="cambiar_pestana_anterio()">Anterior</button>
                             <button id="siguiente" type="button" class="btn btn-secondary col-12  col-md-4 mb-3 " name="next" (click)="cambiar_pestana_siguiente()">Siguiente</button>
                             <button id="guardar" type="button" class="btn btn-secondary col-12  col-md-4 mb-3 " name="aprobar" (click)="abrirModalConfirmacion()">Guardar</button>
+                           
                         </div>
                     </div>
                 </div>

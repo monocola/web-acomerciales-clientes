@@ -18,6 +18,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { GenerarClienteComponent } from './generar-cliente/generar-cliente.component';
 import { GenerarClienteDatosGeneralesComponent } from './generar-cliente-datos-generales/generar-cliente-datos-generales.component';
+import { GenerarClienteDatosSapComponent } from './generar-cliente-datos-sap/generar-cliente-datos-sap.component';
+import { GenerarClienteDatosComercialesComponent } from './generar-cliente-datos-comerciales/generar-cliente-datos-comerciales.component';
+import {MultiSelectModule} from 'primeng/multiselect';
+import { GenerarClienteDatosFinancieraComponent } from './generar-cliente-datos-financiera/generar-cliente-datos-financiera.component';
+import { NotificationComponent } from './notification/notification.component';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +35,11 @@ import { GenerarClienteDatosGeneralesComponent } from './generar-cliente-datos-g
     RegistrarClienteComponent,
     GenerarClienteComponent,
     GenerarClienteDatosGeneralesComponent,
+    GenerarClienteDatosSapComponent,
+    GenerarClienteDatosComercialesComponent,
+    GenerarClienteDatosFinancieraComponent,
+    NotificationComponent,
+ 
     
     ],
   imports: [
@@ -43,7 +54,10 @@ import { GenerarClienteDatosGeneralesComponent } from './generar-cliente-datos-g
     DropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    MultiSelectModule,
+
+    
  
   ],
   providers: [],

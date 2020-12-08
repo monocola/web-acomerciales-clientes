@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  url_global:"",
+  port_clientes:    'http://localhost:7100', //'https://7wm9bk5qsj.execute-api.us-east-1.amazonaws.com/dev',
+  //port_capacidades: 'http://localhost:7100',
+  //port_citas:       'http://localhost:7099',
+  //port_utilidades:  'https://7wm9bk5qsj.execute-api.us-east-1.amazonaws.com/dev',
+  //port_credenciales:'https://7wm9bk5qsj.execute-api.us-east-1.amazonaws.com/dev',
 };
 
 /*

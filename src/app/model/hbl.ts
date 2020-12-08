@@ -18,6 +18,7 @@ export interface IBreadCrumb {
 export interface INotification {
   type?;
   message?;
+  show?;
 }
 
 export interface IFacturada {

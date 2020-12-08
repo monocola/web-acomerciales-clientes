@@ -1,16 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { GlobalClient } from '../commons/Clienteglobal';
 
 interface typeOfSelect {
   label: string;
 }
+declare var $: any;
 @Component({
   selector: 'app-generar-cliente-datos-generales',
   templateUrl: './generar-cliente-datos-generales.component.html',
-  styleUrls: ['./generar-cliente-datos-generales.component.scss']
+  styleUrls: ['./generar-cliente-datos-generales.component.scss'],
+
 })
 export class GenerarClienteDatosGeneralesComponent implements OnInit {
+
+  constructor(public dialogService: DialogService, public config: GlobalClient) {}
+
+  @Output()
+  enviar: EventEmitter<string> = new EventEmitter<string>();
+  tipodocumento:string;
+
+  @Input('variablecboxfecha_solicitudAR') variablecboxfecha_solicitudAR;
+  
+
+  botonClick(){
+    this.enviar.emit(this.tipodocumento);
+  }
 
   @Input() title: string;
   typesOfShift: SelectItem[];
@@ -28,82 +44,13 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
   date2: Date;
   es: any;
   ref: DynamicDialogRef;
-  constructor(public dialogService: DialogService) {}
+  
 
   ngOnInit(): void {
-    this.es = {
-      firstDayOfWeek: 0,
-      dayNames: [
-        'Domingo',
-        'Lunes',
-        'Martes',
-        'Miercoles',
-        'Jueves',
-        'Viernes',
-        'Sabado',
-      ],
-      dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-      dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
-      monthNames: [
-        'Enero',
-        'Febrero',
-        'Marzo',
-        'Abril',
-        'Mayo',
-        'Junio',
-        'Julio',
-        'Agosto',
-        'Septiembre',
-        'Octubre',
-        'Noviembre',
-        'Diciembre',
-      ],
-      monthNamesShort: [
-        'Ene',
-        'Feb',
-        'Mar',
-        'Abr',
-        'May',
-        'Jun',
-        'Jul',
-        'Ago',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dic',
-      ],
-      today: 'Hoy',
-      clear: 'Clear',
-      dateFormat: 'mm/dd/yy',
-      weekHeader: 'Wk',
-    };
+    //this.clienteExistente();
+    
 
-    this.items = [
-      { label: 'Info', icon: 'pi pi-fw pi-angle-right', routerLink: 'fecha' },
-      {
-        label: 'Message',
-        icon: 'pi pi-fw pi-angle-right',
-        routerLink: 'items',
-      },
-    ];
-    this.typesOfShift = [
-      { label: 'Seleccionar', value: null },
-      { label: 'Mañana', value: 'local1' },
-      { label: 'Tarde', value: 'local2' },
-      { label: 'Noche', value: 'local3' },
-    ];
-    this.typesOfLocal = [
-      { label: 'Seleccionar', value: null },
-      { label: 'TPP 1', value: 'local1' },
-      { label: 'TPP 2', value: 'local2' },
-      { label: 'TPP 3', value: 'local3' },
-    ];
-    this.typesOfUn = [
-      { label: 'Seleccionar U. de Negocio', value: null },
-      { label: 'LCL', value: 'un1' },
-      { label: 'SIP', value: 'un2' },
-      { label: 'SIL', value: 'un3' },
-    ];
+ 
   }
 
   onTodayClick($event) {
@@ -146,7 +93,18 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
     */    
     }  
     
-    validar(){
+    clienteExistente(){
+      $("#tipodocumento").prop("disabled", true);
+      $("#fechainscripcion").prop("disabled", true);
+      $("#condicion").prop("disabled", true);
+      $("#estado").prop("disabled", true);
+      $("#direccionfiscal").prop("disabled", true);
+      $("#actividadeconomica").prop("disabled", true);
+     
+      
+    }
 
+    enviarTipodocumento(evt){
+     this.config.setGlobalTipoDocumento(evt.target.value);
     }
   }
