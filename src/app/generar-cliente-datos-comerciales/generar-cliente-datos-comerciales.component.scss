@@ -112,9 +112,9 @@
     padding: 2rem;
     justify-content: space-between;
     // height: 11rem;
-    height: 10rem;
-    overflow-y: scroll;
-    overflow: auto;
+    height: 8rem;
+    //overflow-y: scroll;
+    //overflow: auto;
 }
 
 :host ::ng-deep .form-group p-dropdown {

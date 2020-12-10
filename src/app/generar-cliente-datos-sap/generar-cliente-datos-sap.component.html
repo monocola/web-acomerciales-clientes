@@ -6,13 +6,13 @@
                     <div class="col-sm-6">
                         <label for="nombre" class="w-100  col-form-label text-left ">Código SAP:</label>
                         <div class="w-100 ">
-                            <input id="codigosap" class="form-control input-tpp" type="text">
+                            <input id="codigosap" class="form-control input-tpp" type="text" (change)="enviarcodigoSap($event)">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label for="dni" class="w-100 col-form-label text-left">Domínio:</label>
                         <div class="w-100  position-relative ">
-                            <input id="dominio" class="form-control input-tpp" type="text" >
+                            <input id="dominio" class="form-control input-tpp" type="text" (change)="enviarDominio($event)">
                         </div>
                     </div>
                 </div>

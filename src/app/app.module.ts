@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID ,NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
 import {CalendarModule} from 'primeng/calendar';
@@ -23,6 +23,13 @@ import { GenerarClienteDatosComercialesComponent } from './generar-cliente-datos
 import {MultiSelectModule} from 'primeng/multiselect';
 import { GenerarClienteDatosFinancieraComponent } from './generar-cliente-datos-financiera/generar-cliente-datos-financiera.component';
 import { NotificationComponent } from './notification/notification.component';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import  localeEs  from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+import { ContactosClienteComponent } from './contactos-cliente/contactos-cliente.component';
+registerLocaleData(localeEs, 'es');
+
+
 
 
 @NgModule({
@@ -39,6 +46,7 @@ import { NotificationComponent } from './notification/notification.component';
     GenerarClienteDatosComercialesComponent,
     GenerarClienteDatosFinancieraComponent,
     NotificationComponent,
+    ContactosClienteComponent,
  
     
     ],
@@ -56,11 +64,12 @@ import { NotificationComponent } from './notification/notification.component';
     ReactiveFormsModule,
     AutoCompleteModule,
     MultiSelectModule,
+    RadioButtonModule,
 
     
  
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

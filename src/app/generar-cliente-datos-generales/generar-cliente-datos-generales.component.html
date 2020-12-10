@@ -29,7 +29,7 @@
                     <div class="col-sm-6">
                         <label for="dni" class="w-100 col-form-label text-left">Numero de Documento:</label>
                         <div class="w-100  position-relative ">
-                            <input id="numerodocumento" class="form-control input-tpp" type="text" >
+                            <input id="numerodocumento" class="form-control input-tpp" type="text"  (change)="enviarNumeroDocumento($event)">
                         </div>
                     </div>
                 </div>
@@ -39,13 +39,13 @@
                 <div class="col-sm-6">
                     <label for="nombre" class="w-100  col-form-label text-left ">Nombre o Razón Social:</label>
                     <div class="w-100 ">
-                        <input id="razonsocial" class="form-control input-tpp" type="text">
+                        <input id="razonsocial" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarRazonSocial($event)">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Nombre Comercial:</label>
                     <div class="w-100  position-relative ">
-                        <input id="nombrecomercial" class="form-control input-tpp" type="text" >
+                        <input id="nombrecomercial" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarNombreComercial($event)">
                     </div>
                 </div> 
             </div> 
@@ -54,19 +54,19 @@
                 <div class="col-sm-4">
                     <label for="nombre" class="w-100  col-form-label text-left ">Fecha Inscripción:</label>
                     <div class="w-100 ">
-                        <input id="fechainscripcion" class="form-control input-tpp" type="text">
+                        <input id="fechainscripcion" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarFechaInscripcion($event)">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <label for="dni" class="w-100 col-form-label text-left">Condición:</label>
                     <div class="w-100  position-relative ">
-                        <input id="condicion" class="form-control input-tpp" type="text" >
+                        <input id="condicion" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarCondicion($event)">
                     </div>
                 </div> 
                 <div class="col-sm-4">
                     <label for="dni" class="w-100 col-form-label text-left">Estado:</label>
                     <div class="w-100  position-relative ">
-                        <input id="estado" class="form-control input-tpp" type="text" >
+                        <input id="estado" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarEstado($event)" >
                     </div>
                 </div> 
             </div> 
@@ -75,16 +75,35 @@
                 <div class="col-sm-6">
                     <label for="nombre" class="w-100  col-form-label text-left ">Dirección Fiscal:</label>
                     <div class="w-100 ">
-                        <input id="direccionfiscal" class="form-control input-tpp" type="text">
+                        <input id="direccionfiscal" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarDireccionFiscal($event)">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Actividad Económica:</label>
                     <div class="w-100  position-relative ">
-                        <input id="actividadeconomica" class="form-control input-tpp" type="text" >
+                        <input id="actividadeconomica" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarActividadEconomica($event)">
                     </div>
                 </div> 
             </div> 
+           <br/>
+            <div class="row form-group position-relative mb-1 w-100">
+                <div class="d-flex justify-content-between ">
+                    <label style="color: #fe7041;" class="w-100 col-form-label text-left">INFORMACIÓN SAP: </label>
+                </div>
+                <hr>
+                <div class="col-sm-6">
+                    <label for="nombre" class="w-100  col-form-label text-left ">Código SAP:</label>
+                    <div class="w-100 ">
+                        <input id="codigosap" class="form-control input-tpp" type="text" (change)="enviarcodigoSap($event)">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="dni" class="w-100 col-form-label text-left">Domínio:</label>
+                    <div class="w-100  position-relative ">
+                        <input id="dominio" class="form-control input-tpp" type="text" (change)="enviarDominio($event)">
+                    </div>
+                </div>
+            </div>
          
         </div>
     </div>

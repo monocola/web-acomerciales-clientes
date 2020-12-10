@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalClient } from '../commons/Clienteglobal';
 
 @Component({
   selector: 'app-generar-cliente-datos-sap',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GenerarClienteDatosSapComponent implements OnInit {
 
-  constructor() { }
+  constructor(public config: GlobalClient) { }
 
   ngOnInit(): void {
   }
+
+  /* data temporal de pestaña datos sap*/
+  enviarcodigoSap(evt){
+    this.config.setGlobalCodigoSap(evt.target.value);
+   }
+   enviarDominio(evt){
+     this.config.setGlobalDominio(evt.target.value);
+   }
 
 }

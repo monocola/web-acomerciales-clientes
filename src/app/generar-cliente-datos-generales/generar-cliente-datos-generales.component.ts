@@ -103,8 +103,39 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
      
       
     }
-
+    /* data temporal de pestaña datos generales */
     enviarTipodocumento(evt){
      this.config.setGlobalTipoDocumento(evt.target.value);
     }
+    enviarNumeroDocumento(evt){
+      this.config.setGlobalNumeroDocumento(evt.target.value);
+    }
+    enviarRazonSocial(evt){
+      this.config.setGlobalNombreRazonSocial(evt.target.value);
+    }
+    enviarNombreComercial(evt){
+      this.config.setGlobalNombreComercial(evt.target.value);
+    }
+    enviarFechaInscripcion(evt){
+      this.config.setGlobalFechaDeInscripcion(evt.target.value);
+    }
+    enviarCondicion(evt){
+      this.config.setGlobalCondicion(evt.target.value);
+    }
+    enviarEstado(evt){
+      this.config.setGlobalEstado(evt.target.value);
+    }
+    enviarDireccionFiscal(evt){
+      this.config.setGlobalDireccionFiscal(evt.target.value);
+    }
+    enviarActividadEconomica(evt){
+      this.config.setGlobalActividadEconomica(evt.target.value);
+    }
+    /* data temporal de pestaña datos sap*/
+  enviarcodigoSap(evt){
+    this.config.setGlobalCodigoSap(evt.target.value);
+   }
+   enviarDominio(evt){
+     this.config.setGlobalDominio(evt.target.value);
+   }
   }

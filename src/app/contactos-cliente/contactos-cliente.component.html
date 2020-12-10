@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+            <div class="form-group row mb-3">
+                <div class="form-group col-12 d-flex justify-content-end align-content-end">
+                    <button  (click)="agregarTelefono()" class=" btn btn-bluegray hide-mobile  mb-2" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <ico-add class="ico-white pr-2"></ico-add>Añadir Contacto
+                    </button>
+                </div>
+                <div class="w-100 mb-4 container-dam-text">
+                    <div class=" form-group position-relative"> 
+                         <form [formGroup]="registerForm">
+                                 <div formArrayName="telefonos" *ngFor="let telefono of telefonos.controls; let i = index">
+                                  <div [formGroupName]="i">
+                                    
+                                    <div class="d-flex row justify-content-end flex-wrap justify-content-end">
+                                        <div class="col-sm-4 col-11 pr-2">
+                                            <label  [attr.for]="'nombre' + i" class="col-sm-3 col-12 col-form-label text-left w-100">Nombre Contacto:</label>
+                                            <div class=" position-relative">
+                                                <input [attr.id]="'nombre' + i" class=" form-control input-tpp" type="text" formControlName="nombre" (keydown)="submit()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-11 pr-2">
+                                            <label [attr.for]="'cargo' + i" class="col-sm-3 col-12 col-form-label text-left w-100">Cargo:</label>
+                                            <div class="w-100 position-relative"> <input [attr.id]="'cargo' + i" class="form-control input-tpp" type="text" formControlName="cargo" (keydown)="submit()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 col-11 pr-2">
+                                            <label [attr.for]="'correo' + i" class="col-sm-3 col-12 col-form-label text-left w-100">Correo:</label>
+                                            <div class=" position-relative"> <input [attr.id]="'correo' + i" class="form-control input-tpp" type="text" formControlName="correo" (keydown)="submit()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2 col-11 pr-2">
+                                            <label [attr.for]="'telefono' + i" class="col-sm-3 col-12 col-form-label text-left w-100">Teléfono:</label>
+                                            <div class=" position-relative"> <input [attr.id]="'telefono' + i" class="form-control input-tpp" type="text" formControlName="telefono" (keydown)="submit()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1 col-11 pr-2">
+                                            <label  class="col-sm-3 col-12 col-form-label text-left w-100"> &nbsp;</label>
+                                            <div class=" position-relative"> 
+                                                <button class="btn btn-secondary" *ngIf="telefonos.controls.length > 1" (click)="removerTelefono(i)">
+                                                    <ico-eliminar style="width: auto;height: auto;" class="ico-white"></ico-eliminar>
+                                                  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                                  
+                                  <hr  class="mt-2 mb-2" />
+                              </form>
+                        <br >
+                       
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

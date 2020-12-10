@@ -1,3 +1,4 @@
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-11">
@@ -11,24 +12,19 @@
                             </div>
                             <div class="col-sm-10">
                                 <div class="row position-relative justify-content-end">
-                                    <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap ">
+                                    <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap" *ngFor="let sus of listaSuspensiones">
                                         <div class="form-check form-check-inline flex-wrap w-cnt2 my-2">
-                                            <div class="d-flex container-check">
-                                                <input class="form-check-input " type="checkbox" name="rdo_contenedores" id="id">
-                                                <label class="form-check-label font-normal ml-2" for="">Cliente Activo</label>
+                                            <div >
+                                                <input id="tipo_retiro{{ sus.id }}" name="tipo" class="form-check-input mr-0 mr-lg-3" type="radio" (change)="cambiarTipoSuspension(sus.id)" value="t{{ sus.id }}"  >
+                                                <label class="form-check-label font-normal ml-2" for="">{{ sus.tipoestado}} </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap ">
-                                        <div class="form-check form-check-inline flex-wrap w-cnt2 my-2">
-                                            <div class="d-flex container-check">
-                                                <input class="form-check-input " type="checkbox" name="rdo_contenedores" id="id">
-                                                <label class="form-check-label font-normal ml-2" for="">Cliente Suspendido</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  
                                 </div>
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -39,14 +35,19 @@
             <div class="col-sm-12">
                 <label for="nombre" class="w-100  col-form-label text-left">Suspendido con (Empresa):</label>
                 <div class="w-100  text-left">
-                    <p-multiSelect [style]="{'width':'100%'}"  
-                            [options]="cities" 
-                            [(ngModel)]="selectedCities2" 
+                    <p-multiSelect
+                            [style]="{'width':'100%'}"  
+                            [options]="listaEmpSusp" 
                             defaultLabel="" 
-                            optionLabel="name" display="chip"
+                            optionLabel="personaname" display="chip"
                             [filter]=true
-                            [maxSelectedLabels]="10"> 
+                            [maxSelectedLabels]="10"
+                            [(ngModel)]="selectedTipos" 
+                            optionValue="id"
+                            (click)="seleccionarListadoEmp()"> 
                     </p-multiSelect>
+
+                   
                 </div>
             </div>
         </div> 
@@ -55,13 +56,13 @@
                 <div class="col-sm-6">
                     <label for="nombre" class="w-100  col-form-label text-left ">Motivo Suspensión:</label>
                     <div class="w-100 ">
-                        <input id="motivosuspension" class="form-control input-tpp" type="text">
+                        <input id="motivosuspension" class="form-control input-tpp" type="text" (change)="enviarMotivoSuspension($event)">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Instrucción recibida de:</label>
                     <div class="w-100  position-relative ">
-                        <input id="instruccionrecibida" class="form-control input-tpp" type="text" >
+                        <input id="instruccionrecibida" class="form-control input-tpp" type="text" (change)="enviarInstruccionRecibida($event)">
                     </div>
                 </div>
             </div>
@@ -69,27 +70,72 @@
         <div class="form-group row mb-3">
             <div class="row form-group position-relative mb-1 w-100">
                 <div class="col-sm-3">
-                    <label for="nombre" class="w-100  col-form-label text-left ">Plazo de Crédito:</label>
+                    <label for="nombre" class="w-100  col-form-label text-left ">Plazo de Crédito( Dias ):</label>
                     <div class="w-100 ">
-                        <input id="plazocredito" class="form-control input-tpp" type="text">
+                        <p-dropdown 
+                        [options]="listaPlazocredito" 
+                        name="plazodecredito"  
+                        [style]="{'width':'100%', 'text-align': 'left'}"   
+                        [(ngModel)]="selectedValuePlazo"
+                        optionLabel="plazodecredito"
+                        placeholder="Seleccione..."
+                        (onChange)="onSelectPlazoCredito(selectedValuePlazo)"
+                        ></p-dropdown>
                     </div>
+                    
                 </div>
                 <div class="col-sm-3">
-                    <label for="dni" class="w-100 col-form-label text-left">Tasa Interés Libro:</label>
+                    <label for="dni" class="w-100 col-form-label text-left">Tasa Interés Libro( % ):</label>
                     <div class="w-100  position-relative ">
-                        <input id="tasaintereslibro" class="form-control input-tpp" type="text" >
+                        <div class="w-100 ">
+                            <p-dropdown 
+                            [options]="tasaInteresListado" 
+                            name="tazainteres"  
+                            [style]="{'width':'100%', 'text-align': 'left'}"   
+                            [(ngModel)]="tasaSeleccion"
+                            optionLabel="tazainteres"
+                            placeholder="Seleccione..."
+                            (onChange)="onSelectTasaInteresL(tasaSeleccion)"
+                            ></p-dropdown>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <label for="nombre" class="w-100  col-form-label text-left ">Tasa Interés Especial:</label>
                     <div class="w-100 ">
-                        <input id="tasainteresespecial" class="form-control input-tpp" type="text">
+                        <input id="tasainteresespecial" class="form-control input-tpp" type="text" (change)="enviarTasaInteresEspecial($event)">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <label for="dni" class="w-100 col-form-label text-left">Calificación del Riesgo:</label>
                     <div class="w-100  position-relative ">
-                        <input id="calificacionsolicitud" class="form-control input-tpp" type="text" >
+                        <div class="w-100 ">
+                            <p-dropdown 
+                            [options]="listadoResigos" 
+                            name="tazainteres"  
+                            [style]="{'width':'100%', 'text-align': 'left'}"   
+                            [(ngModel)]="riesgoSeleccion"
+                            optionLabel="riesgo"
+                            placeholder="Seleccione..."
+                            (onChange)="onSelectRiesgo(riesgoSeleccion)"
+                            ></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <div class="row form-group position-relative mb-1 w-100">
+                    <div class="col-sm-6">
+                        <label for="nombre" class="w-100  col-form-label text-left ">Fecha de Registro:</label>
+                        <div class="w-100 ">
+                            <input id="fecharegistro" class="form-control input-tpp" type="text" value="{{  fechaActual  | date: 'fullDate':	'EEEE, MMMM d, y'}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="dni" class="w-100 col-form-label text-left">Usuario de Registro:</label>
+                        <div class="w-100  position-relative text-right ">
+                            <input id="usuario" class="form-control input-tpp" type="text" value="{{ usuarioLogin }}">
+                        </div>
                     </div>
                 </div>
             </div>
