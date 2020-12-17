@@ -30,6 +30,7 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
   selectedTipos: TipoOperador[];
   listadoCategorias: any;
   listarTipoOperadores: any;
+  notificacionGlobal: {};
 
   constructor(private productoService: ProductoService,
     private sectorService: SectorService,
@@ -42,7 +43,7 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
   ngOnInit(): void {
     $("#otroOperadorText").hide();
     this.config.setGlobalCategoriaClienteProveedor(false);
-
+    this.config.setGlobalOtroTipoOperador(0);
 
     var objCategoria = new Categoria();
     this.categoriaService.obtenerCategorias(objCategoria).subscribe(
@@ -55,7 +56,6 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
     this.tipoOpService.obtenerTipoOperadores(objTipoOperador).subscribe(
       (dataOperadores) => {
         this.listarTipoOperadores = dataOperadores;
-
       })
 
 
@@ -68,7 +68,6 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
       (dataProducto) => {
         this.listaProductos = new Array();
         this.listaProductos = dataProducto;
-
       })
   }
 
@@ -78,13 +77,21 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
 
   listaSectores: any;
   onSelect(event) {
+    if(event == null){
+      alert("vacio");
+    }else {
     this.idproducto = event.id;
     this.config.setGlobalProductoId(event.id);
+    }
+    
   }
   onSelectSector(evt) {
     this.config.setGlobalSectorId(evt.id);
   }
 
+  otrometodo(event){
+    alert(event.target.value);
+  }
   listaSectoresProd: any;
   searchSector(event1) {
     var objSector = new Sector();
@@ -94,9 +101,10 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
       (dataSectores) => {
         this.listaSectoresProd = new Array();
         this.listaSectoresProd = dataSectores;
-
       })
   }
+
+  
 
   enviarEjecutivo(evt) {
     this.config.setGlobalEjecutivo(evt.target.value);

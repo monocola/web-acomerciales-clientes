@@ -1,35 +1,32 @@
 <div class="col-lg-12 mb-4">
     <div class="card br-15 bs-6 pr-1 pl-1">
-        <div class="card-body" *ngFor="let retiro of retirosP; let i = index;" [ngClass]="{ 'disabled': i == 3 }">
+        <div class="card-body" *ngFor="let retiro of retirosP; let i = index;">
             <div class="row position-relative bs-10 first lista justify-content-center align-items-center" [id]="'collapse'+ i" [ngClass]="{ 'row-par': (i+1)%2 }">
-                <div class="border-right body-content lista-row position-relative h-auto " [style]="{ width: retiro.row[0].col }">
-                    <span class="pl-3 brk-w">{{ retiro.nroAR }}</span></div>
-                <div class="border-right body-content lista-row justify-content-center h-auto " [style]="{ width: retiro.row[1].col }"><span class="brk-w">{{ retiro.ctnBultos }}</span></div>
-                <div class="border-right body-content lista-row justify-content-center h-auto " [style]="{ width: retiro.row[2].col }"><span class="brk-w">{{ retiro.fechaRetiro }}</span></div>
-                <div class="border-right body-content lista-row justify-content-center h-auto" [style]="{ width: retiro.row[3].col }"><span class="brk-w">{{ retiro.horaRetiro }}</span>
+                <div class="border-right body-content lista-row position-relative h-auto " [style]="{ width: '8%'}">
+                    <span class="pl-3 brk-w">{{ retiro.codigosap }}</span></div>
+                <div class="border-right body-content lista-row justify-content-center h-auto " [style]="{ width: '12%' }"><span class="brk-w">{{ retiro.numerodocumento }}</span></div>
+                <div class="border-right body-content lista-row justify-content-center h-auto " [style]="{ width: '20%' }"><span class="brk-w">{{ retiro.nombrecomercial }}</span></div>
+                <div class="border-right body-content lista-row justify-content-center h-auto" [style]="{ width: '20%' }"><span class="brk-w">{{ retiro.nombrecomercial }}</span>
                 </div>
-                <div class="border-right body-content lista-row justify-content-center h-auto" [style]="{ width: retiro.row[4].col }">
-                    <span class="brk-w">{{ retiro.turno }}</span>
+                <div class="border-right body-content lista-row justify-content-center h-auto" [style]="{ width: '15%' }">
+                    <span class="brk-w">{{ retiro.pais }}</span>
                 </div>
                
-
-                <div class="text-center lista-actions btn-top " [style]="{ width: retiro.row[5].col }">
+                <div class="text-center lista-actions btn-top " [style]="{ width: '20%' }">
                     <button class="btn btn-light " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <ico-more class="ico-secondary"></ico-more>
           </button>
                     <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button" data-toggle="collapse" [attr.data-target]="'#collapseOrden' + i " [ngClass]="{'disabled-menu': disabled == true && i == 3}" (click)="open('collapse' + i )" aria-expanded="true" [attr.aria-controls]="'collapseOrden' + i"
+            <button (click)="abrirFileCliente()" class="dropdown-item" type="button" data-toggle="collapse" [attr.data-target]="'#collapseOrden' + i " [ngClass]="{'disabled-menu': disabled == true && i == 3}" (click)="open('collapse' + i )" aria-expanded="true" [attr.aria-controls]="'collapseOrden' + i"
                             type="button">
-              <ico-eye class="ico-menu mr-2" [ngClass]="{'ico-primary': disabled && i == 3}"></ico-eye>
-              Ver Detalle
+              <ico-documento class="ico-menu mr-2" [ngClass]="{'ico-primary': disabled && i == 3}"></ico-documento>
+              File Cliente
             </button>
-            <button class="dropdown-item" (click)="showExonResgis()" [ngClass]="{'disabled-menu': disabled == true && i == 3}">
+            <button class="dropdown-item" (click)="editarCliente()" [ngClass]="{'disabled-menu': disabled == true && i == 3}">
               <ico-edit class="ico-menu mr-2" [ngClass]="{'ico-primary': disabled && i == 3}"></ico-edit>
-              Editar Registro
+              Editar Cliente
             </button>
-            
-
-                    </div>
+                </div>
                 </div>
                 <div class="text-center lista-collapse btn-top ">
                     <button class="btn btn-light collapsed" data-toggle="collapse" aria-expanded="false" [attr.data-target]="'#retiro-' + i " (click)="collapse($event)">
@@ -38,7 +35,7 @@
                 </div>
                 <div id="collapseOrden{{ i }}" class="collapse animate-all" [attr.data-parent]="'#collapse'+ i">
                     <div class="card-body card-collapse">
-                      <!--   <app-detalle-exoneracion (show)="close('collapse' + i, 'collapseOrden' + i)"></app-detalle-exoneracion> -->
+                    
                     </div>
                 </div>
 

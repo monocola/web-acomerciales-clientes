@@ -1,6 +1,7 @@
 <div class="container" style="margin-top: -12px;">
     <div class="row justify-content-center">
         <div class="form-group row mb-1">
+            <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
             <div class="row form-group position-relative mb-1 w-10">
                 <div class="d-flex justify-content-between ">
                     <label  class="w-100 col-form-label text-left">Buscar Producto: </label>
@@ -14,15 +15,15 @@
                     [style]="{'width':'100%'}"
                     [inputStyle]="{'width':'100%'}"
                     class="p-autocomplete"
-                    (onSelect)="onSelect($event)"
-                    >
+                    (onSelect)="onSelect($event)">
                     </p-autoComplete>
                 </div>
                 
                 <div class="col-sm-6 text-left">
                     <label for="dni" class="w-100 col-form-label text-left">Sector:</label>
                     <div class="w-100  position-relative ">
-                        <p-autoComplete  [inputId]="'sectorid'"
+                        <p-autoComplete  
+                        [inputId]="'sectorid'"
                         field="sectorname"
                         [minLength]="3"
                         [suggestions]="listaSectoresProd"
@@ -38,7 +39,7 @@
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Ejecutivo:</label>
                     <div class="w-100  position-relative ">
-                        <input id="ejecutivo" class="form-control input-tpp" type="text" (change)="enviarEjecutivo($event)">
+                        <input id="ejecutivo" class="form-control input-tpp" type="text" (blur)="enviarEjecutivo($event)" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -107,7 +108,7 @@
     <div class="col-sm-10" id="otroOperadorText">
         <label for="dni" class="w-100 col-form-label text-left"></label>
         <div class="w-100  position-relative ">
-            <input id="otrooperador" class="form-control input-tpp" type="text" placeholder="Espedificar Operador" (change)="enviarOtroOperador($event)"  >
+            <input id="otrooperador" class="form-control input-tpp" type="text" placeholder="Espedificar Operador" (blur)="enviarOtroOperador($event)"  >
         </div>
         <br/>
     </div> 

@@ -29,13 +29,7 @@ export class ContactosClienteComponent implements OnInit {
 
   
   ngOnInit() {
-    const telefonoFormGroup  = this.formBuilder.group({
-      nombre: '',
-      cargo: '',
-      correo: '',
-      telefono:''
-    });
-    this.telefonos.push(telefonoFormGroup);
+   
   }
 
   agregarTelefono(){

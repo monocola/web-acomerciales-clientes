@@ -1,0 +1,131 @@
+<div class="container container-history">
+    <div class="row">
+        <div class="col-12 mt-4 mb-3">
+            <p class="tpp-close" (click)="cerrar()">
+                <ico-close class="ico-primary ico-close pointer"></ico-close>
+            </p>
+            <h1 class="modal-title">Listado de Productos y Sectores</h1>
+        </div>
+    </div>
+    <label for="un" class="col-sm-9 tpp-label">Buscar por: {{ tipo }}</label>
+    <div class="col-sm-4">
+        <div class="form-group row mb-3">
+            <div class="row form-group position-relative mb-1 w-100">
+                <div class="col-sm-6">
+                    <div class="w-100 ">
+                        <input class="form-check-input mr-0 mr-lg-3" name="tipoApl" (click)="tipoBusqueda(1)" type="radio" value="1" [checked]="tipo ==1" >Producto.
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="w-100  position-relative text-right ">
+                        <input class="form-check-input mr-0 mr-lg-3" name="tipoApl" type="radio"  (click)="tipoBusqueda(2)" value="2" [checked]="tipo ==2"  >Sector.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="producto">
+        <div class="d-flex">
+            <div class="form-group col-12 mb-3 ">
+                <label for="un" class="col-sm-9 tpp-label">Seleccione Producto:</label>
+                <div class="col-sm-12 text-left">
+                    <p-dropdown [options]="typesTurnos"  [style]="{'width':'100%'}" name="local" [(ngModel)]="selectedTurnos"></p-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 d-flex justify-content-end align-content-end">
+            <button  class="btn btn-secondary col-6  col-md-3 mb-2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" (click)="nuevoProducto()">
+                <ico-add class="ico-white pr-2"></ico-add>Añadir Producto
+            </button>
+        </div>
+    </div>
+    <div id="sector">
+        <div class="d-flex">
+            <div class="form-group col-12 mb-3 ">
+                <label for="un" class="col-sm-9 tpp-label">Seleccione Sector:</label>
+                <div class="col-sm-12 text-left">
+                    <p-dropdown [options]="typesSectores"  [style]="{'width':'100%'}" name="local" [(ngModel)]="selectedTurnos"></p-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 d-flex justify-content-end align-content-end">
+            <button  class="btn btn-secondary col-6  col-md-3 mb-2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" (click)="nuevoSector()">
+                <ico-add class="ico-white pr-2"></ico-add>Añadir Sector
+            </button>
+        </div>
+    </div>
+    <div class="row mb-4">
+
+        <div class="col-12" id=tablaproducto>
+            <div class="card br-15 bs-6 pr-1 pl-1">
+                <div class="card-body header">
+                    <div class="row lista justify-content-center align-items-center">
+                        <div class="border-right text-center col-4">
+                            <span class="font-weight-bold">Nombre Producto</span>
+                        </div>
+                        <div class="border-right text-center col-4">
+                            <span class="font-weight-bold ml-3">Nombre Sector </span>
+                        </div>
+                        <div class="text-center col-4">
+                            <span class="font-weight-bold ml-3">Acción </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body body mt-2">
+                <div class="row">
+                    <div class="d-flex position-relative justify-content-center align-items-center mb-3">
+                        <div class="col-4 position-relative text-center">
+                            <span>xxxx</span>
+                        </div>
+                        <div class="col-4  position-relative text-center ">
+                            <p class=" brk-w">xxxx</p>
+                        </div>
+                        <div class="col-4  position-relative text-center ">
+                            <p class=" brk-w">xxxx</p>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+        <div class="col-12" id=tablasector>
+            <div class="card br-15 bs-6 pr-1 pl-1">
+                <div class="card-body header">
+                    <div class="row lista justify-content-center align-items-center">
+                        <div class="border-right text-center col-4">
+                            <span class="font-weight-bold">Nombre Sector</span>
+                        </div>
+                        <div class="border-right text-center col-4">
+                            <span class="font-weight-bold ml-3">Nombre Producto </span>
+                        </div>
+                        <div class="text-center col-4">
+                            <span class="font-weight-bold ml-3">Acción </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body body mt-2">
+                <div class="row">
+                    <div class="d-flex position-relative justify-content-center align-items-center mb-3">
+                        <div class="col-4 position-relative text-center">
+                            <span>xxxx</span>
+                        </div>
+                        <div class="col-4  position-relative text-center ">
+                            <p class=" brk-w">xxxx</p>
+                        </div>
+                        <div class="col-4  position-relative text-center ">
+                            <p class=" brk-w">xxxx</p>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

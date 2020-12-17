@@ -37,12 +37,7 @@ export class ClientesComponent implements OnInit {
       { name: 'Hora' },
     ];
 
-    this.hblService.getRetiroP().then((retiros) => {
-      for (let i = 0; i < retiros.length; i++) {
-        retiros[i].row = this.lista;
-      }
-      this.retiros = retiros;
-    });
+   
 
     this.notificacion = {
       type: 'success',

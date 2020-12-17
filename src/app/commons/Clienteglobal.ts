@@ -6,7 +6,7 @@ import { Contacto } from '../model/contactos';
 })
 export class GlobalClient {
 
-    globalTipoDocumento: string; 
+    globalTipoDocumento: number; 
     globalNumeroDocumento: string; 
     globalNombreRazonSocial: string; 
     globalNombreComercial: string; 
@@ -37,10 +37,10 @@ export class GlobalClient {
     
 
 
-    setGlobalTipoDocumento(tipodocumento: string) {
+    setGlobalTipoDocumento(tipodocumento: number) {
         this.globalTipoDocumento = tipodocumento;
     }
-    getGlobalTipoDocumento(): string {
+    getGlobalTipoDocumento(): number {
         return this.globalTipoDocumento;
     }
 
@@ -221,7 +221,35 @@ export class GlobalClient {
     }
     
     
-
+    limpiarGlobalCliente(){
+        this.setGlobalTipoDocumento(undefined);
+        this.setGlobalNumeroDocumento(undefined);
+        this.setGlobalNombreRazonSocial(undefined);
+        this.setGlobalNombreComercial(undefined);
+        this.setGlobalFechaDeInscripcion(undefined);
+        this.setGlobalCondicion(undefined);
+        this.setGlobalEstado(undefined);
+        this.setGlobalDireccionFiscal(undefined);
+        this.setGlobalActividadEconomica(undefined);
+        this.setGlobalCodigoSap(undefined)
+        this.setGlobalDominio(undefined);
+        this.setGlobalProductoId(undefined);
+        this.setGlobalSectorId(undefined);
+        this.setGlobalEjecutivo(undefined);
+        this.setGlobalCategoriaClienteProveedor(undefined);
+        this.setGlobalListadoTipoOperadores(undefined);
+        this.setGlobalListadoEmpSuspen(undefined);
+        this.setGlobalOtroTipoOperador(undefined);
+        this.setGlobalOtroTipoOperadorEspecificar(undefined);
+        this.setGlobalEstadoSuspension(undefined);
+        this.setGlobalMotivoSuspension(undefined);
+        this.setGlobalInstruccionRecibida(undefined);
+        this.setGlobalPlazoCreditoId(undefined);
+        this.setGlobalTasaInteresLibroId(undefined);
+        this.setGlobalTasaInteresEspecial(undefined);
+        this.setGlobalCalificacionRiesgoId(undefined);
+        this.setGlobalContactos(undefined);
+    }
 
     
 }

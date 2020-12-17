@@ -1,35 +1,39 @@
 <div class="container">
     <div class="row justify-content-center">
        <div class="col-sm-11">
+        <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
             <div class="form-group row mb-3">
                 <div class="row form-group position-relative mb-1 w-100">
                     <div class="d-flex justify-content-between ">
-                        <label  class="w-100 col-form-label text-left">Buscar por Ruc/Razón Social: </label>
+                        <label  class="w-100 col-form-label text-left">Buscar por Ruc en Sunat: {{ ruc }} </label>
                     </div>
-                    <div class="col-sm-12 text-left">
-                    <p-autoComplete  [inputId]="'busqueda'"
-                        field="nombrecomercial"
-                        [minLength]="3"
-                        [suggestions]="listaEmpresa"
-                        (completeMethod)="search($event)"
-                        [style]="{'width':'100%'}"
-                        [inputStyle]="{'width':'100%'}"
-                        class="p-autocomplete">
-                        </p-autoComplete>
+                    <div class="col-sm-3 text-left">
+                        <input id="busqueda" class="form-control input-tpp" autocomplete="off" type="text" (keypress)="soloNumeros($event)"  (keyup)="buscarRucSunat()">
                     </div>
                     <div>
                         <hr/>
                     </div>
                     <div class="col-sm-6">
                         <label for="nombre" class="w-100  col-form-label text-left ">Tipo de Documento:</label>
-                        <div class="w-100 ">
-                            <input id="tipodocumento" name="tipodocumento" class="form-control input-tpp" type="text"  (change)="enviarTipodocumento($event)">
+                        <div class="col-sm-12 text-left">
+                      <div id="tipodocumento1">
+                        <p-dropdown 
+                        [options]="listadoTipoDocumentos" 
+                        name="tipodocumento"  
+                        [style]="{'width':'100%', 'text-align': 'left'}"
+                        [(ngModel)]="selectedtipoDoc"   
+                        optionLabel="tipodocumento"
+                        placeholder="Seleccione tipo..."
+                        (onChange)="enviarTipodocumento(selectedtipoDoc)">
+                    </p-dropdown>
+                      </div>      
+                        <input id="tipodocumento2" class="form-control input-tpp" value="Registro Único de Contribuyentes" type="text" autocomplete="off"  (blur)="enviarNumeroDocumento($event)">
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label for="dni" class="w-100 col-form-label text-left">Numero de Documento:</label>
+                        <label for="dni" class="w-100 col-form-label text-left">Numero de Documento:</label> 
                         <div class="w-100  position-relative ">
-                            <input id="numerodocumento" class="form-control input-tpp" type="text"  (change)="enviarNumeroDocumento($event)">
+                            <input id="numerodocumento" class="form-control input-tpp" type="text" autocomplete="off"  (blur)="enviarNumeroDocumento($event)">
                         </div>
                     </div>
                 </div>
@@ -39,13 +43,13 @@
                 <div class="col-sm-6">
                     <label for="nombre" class="w-100  col-form-label text-left ">Nombre o Razón Social:</label>
                     <div class="w-100 ">
-                        <input id="razonsocial" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarRazonSocial($event)">
+                        <input id="razonsocial" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarRazonSocial($event)">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Nombre Comercial:</label>
                     <div class="w-100  position-relative ">
-                        <input id="nombrecomercial" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarNombreComercial($event)">
+                        <input id="nombrecomercial" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarNombreComercial($event)">
                     </div>
                 </div> 
             </div> 
@@ -54,34 +58,34 @@
                 <div class="col-sm-4">
                     <label for="nombre" class="w-100  col-form-label text-left ">Fecha Inscripción:</label>
                     <div class="w-100 ">
-                        <input id="fechainscripcion" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarFechaInscripcion($event)">
+                        <input id="fechainscripcion" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarFechaInscripcion($event)" >
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <label for="dni" class="w-100 col-form-label text-left">Condición:</label>
                     <div class="w-100  position-relative ">
-                        <input id="condicion" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarCondicion($event)">
+                        <input id="condicion" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarCondicion($event)">
                     </div>
                 </div> 
                 <div class="col-sm-4">
                     <label for="dni" class="w-100 col-form-label text-left">Estado:</label>
                     <div class="w-100  position-relative ">
-                        <input id="estado" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarEstado($event)" >
+                        <input id="estado" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarEstado($event)"  >
                     </div>
                 </div> 
             </div> 
 
             <div class="row form-group position-relative mb-1 w-100">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <label for="nombre" class="w-100  col-form-label text-left ">Dirección Fiscal:</label>
                     <div class="w-100 ">
-                        <input id="direccionfiscal" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarDireccionFiscal($event)">
+                        <input id="direccionfiscal" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarDireccionFiscal($event)">
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <label for="dni" class="w-100 col-form-label text-left">Actividad Económica:</label>
                     <div class="w-100  position-relative ">
-                        <input id="actividadeconomica" autocomplete="off" class="form-control input-tpp" type="text" (change)="enviarActividadEconomica($event)">
+                        <input id="actividadeconomica" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarActividadEconomica($event)">
                     </div>
                 </div> 
             </div> 
@@ -94,13 +98,13 @@
                 <div class="col-sm-6">
                     <label for="nombre" class="w-100  col-form-label text-left ">Código SAP:</label>
                     <div class="w-100 ">
-                        <input id="codigosap" class="form-control input-tpp" type="text" (change)="enviarcodigoSap($event)">
+                        <input id="codigosap" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarcodigoSap($event)">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Domínio:</label>
                     <div class="w-100  position-relative ">
-                        <input id="dominio" class="form-control input-tpp" type="text" (change)="enviarDominio($event)">
+                        <input id="dominio" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarDominio($event)">
                     </div>
                 </div>
             </div>

@@ -1,0 +1,67 @@
+@import "../../../assets/scss/01-elements/variables";
+
+
+
+.box {
+  display: flex;
+  font-size: 1.25rem;
+  background-color: $background;
+  position: relative;
+  padding: 40px 20px;
+  border: 2px dashed $gray;
+  flex-direction: column;
+  align-items: center;
+    &__input {
+      background: $white;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(61, 61, 61, 0.12);
+      border-radius: 4px;
+    }
+    &__file {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+
+      & + label {
+          max-width: 80%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          cursor: pointer;
+          display: inline-block;
+          overflow: hidden;
+      }
+    }
+    &__button {
+      font-weight: 700;
+      color: #e5edf1;
+      background-color: #39bfd3;
+      display: none;
+      padding: 8px 16px;
+      margin: 40px auto 0;
+
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        border: 0;
+      }
+    }
+    &__error {
+      display: flex;
+      color: $primary-color
+    }
+}
+
+a {
+  font-size: 14px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

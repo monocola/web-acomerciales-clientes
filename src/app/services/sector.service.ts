@@ -28,4 +28,15 @@ export class SectorService{
     );
   }
 
+  obtenerListaSectores(sector: Sector): Observable<Sector> {
+    return this.http.post<Sector>(`${this.baseEndpointSector}/sectorsList`, sector, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        if (e.status == 404) {
+          return throwError(e);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
 }

@@ -1,0 +1,86 @@
+<div class="">
+    <div class="row mb-4">
+        <div class="col-sm-12 mt-4 mb-3">
+            <p class="tpp-close" (click)="cerrar()">
+                <ico-close class="ico-primary ico-close pointer"></ico-close>
+            </p>
+            <h1 class="modal-title">File del Cliente</h1>
+        </div>
+    </div>
+    <div class="container">
+    <div class="row mb-5 ">
+            <div class="row form-group position-relative mb-1 w-100">
+                <div class="col-sm-7">
+                    <label for="nombre" class="w-100  col-form-label text-left ">Razón Social:</label>
+                    <div class="w-100 ">
+                        <input id="tipodocumento" name="tipodocumento" class="form-control input-tpp" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <label for="dni" class="w-100 col-form-label text-left">Grupo Empresarial:</label>
+                    <div class="w-100  position-relative ">
+                        <input id="numerodocumento" class="form-control input-tpp" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group position-relative mb-1 w-100">
+                <div class="col-sm-5">
+                    <label for="nombre" class="w-100  col-form-label text-left ">Ruc:</label>
+                    <div class="w-100 ">
+                        <input id="razonsocial" autocomplete="off" class="form-control input-tpp" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <label for="dni" class="w-100 col-form-label text-left">Sector:</label>
+                    <div class="w-100  position-relative ">
+                        <input id="nombrecomercial" autocomplete="off" class="form-control input-tpp" type="text">
+                    </div>
+                </div> 
+            </div>
+            <div class="row form-group position-relative mb-1 w-100">
+                <div class="col-sm-8">
+                    <label for="nombre" class="w-100  col-form-label text-left ">Dirección Fiscal:</label>
+                    <div class="w-100 ">
+                        <input id="razonsocial" autocomplete="off" class="form-control input-tpp" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="dni" class="w-100 col-form-label text-left">Aniversario de la Empresa:</label>
+                    <div class="w-100  position-relative ">
+                        <input id="nombrecomercial" autocomplete="off" class="form-control input-tpp" type="text">
+                    </div>
+                </div> 
+            </div>  
+           <div class="space"></div>
+        <app-contactos-cliente></app-contactos-cliente>
+        <div class="row form-group position-relative mb-1 w-100">
+            <div class="col-sm-4">
+                <label for="nombre" class="w-100  col-form-label text-left ">Ejecutivo Comercial:</label>
+                <div class="w-100 ">
+                    <input id="razonsocial" autocomplete="off" class="form-control input-tpp" type="text">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label for="dni" class="w-100 col-form-label text-left">Customer Service Asignado:</label>
+                <div class="w-100  position-relative ">
+                    <input id="nombrecomercial" autocomplete="off" class="form-control input-tpp" type="text">
+                </div>
+            </div> 
+            <div class="col-sm-4">
+                <label for="dni" class="w-100 col-form-label text-left">Customer Service (BACK UP):</label>
+                <div class="w-100  position-relative ">
+                    <input id="nombrecomercial" autocomplete="off" class="form-control input-tpp" type="text">
+                </div>
+            </div> 
+        </div>  
+    </div>
+    </div>    
+    <div class="row  mt-3 mb-4">
+        <div class="col-sm-6 text-center pl-lg-0">
+            <button  type="button" class="btn w-100 btn-outline-primary" (click)="cerrar()">Cerrar</button>
+        </div>
+        <div class="col-sm-6 text-center pr-lg-0">
+            <button type="submit" class="btn w-100 btn-secondary" (click)="registrarFileCliente()">Guardar</button>
+        </div>
+    </div>
+</div>

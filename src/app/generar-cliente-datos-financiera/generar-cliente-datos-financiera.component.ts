@@ -113,10 +113,15 @@ export class GenerarClienteDatosFinancieraComponent implements OnInit {
  
   seleccionarListadoEmp(){
       var listadoTiposCadena = [];
-      this.selectedTipos.forEach(element => {
-        listadoTiposCadena.push(element.id);
-        this.config.setGlobalListadoEmpSuspen(listadoTiposCadena.toString());
-      });
+      if(listadoTiposCadena == []){
+
+      }else{
+        this.selectedTipos.forEach(element => {
+          listadoTiposCadena.push(element.id);
+          this.config.setGlobalListadoEmpSuspen(listadoTiposCadena.toString());
+        });
+      }
+      
   
     }
 

@@ -1,0 +1,61 @@
+<div class="">
+    <div class="row">
+        <div class="col-sm-12 mt-4 mb-3">
+            <p class="tpp-close" (click)="cerrar()">
+                <ico-close class="ico-primary ico-close pointer"></ico-close>
+            </p>
+            <h1 class="modal-title">Editar Cliente</h1>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="card step-progress mb-4 p-0" style="width: 95%;overflow-x: hidden;">
+            <div class="step-slider w-100">
+                <div id="pestanaDatos" data-id="step1" class="step-slider-item active">
+                    <h5 class="step-title">Datos Generales</h5>
+                    <i class="pi pi-chevron-right step-icon"></i>
+                </div>
+                    <div id="pestanaInfoComercial" data-id="step3" class="step-slider-item pl-4">
+                    <i class="pi pi-chevron-right step-icon"></i>
+                    <h5 class="step-title">Información Comercial</h5>
+                </div>
+                <div id="pestanaInfoFinanciera" data-id="step4" class="step-slider-item pl-4">
+                    <h5 class="step-title">Información Financiera</h5>
+                </div>
+
+            </div>
+
+           
+            <div class="step-content w-100">
+                <div class="container">
+                    <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
+                </div>
+                <div id="bodyDatosGenerales" class="step-content-body">
+                <app-editar-cliente-datos-generales></app-editar-cliente-datos-generales>    
+                </div>
+                <div id="bodyComercial" class="step-content-body">
+                  <app-editar-cliente-datos-comerciales></app-editar-cliente-datos-comerciales>
+                  </div>
+                <div id="bobyFinanciera" class="step-content-body">
+                  <app-editar-cliente-datos-fiancieros></app-editar-cliente-datos-fiancieros>
+                </div>  
+
+            </div>
+            <div class="step-content-foot">
+                <div class="">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5  col-12 text-left">
+                            <button type="button" class="btn btn-outline-primary  mb-1 active mr-3" (click)="cerrar()" name="cancelar">Cancelar</button>
+                            <button id="subirarchivo" type="button" class="btn btn-primary" name="subir" (click)="subirEvidenciaSuspension(1)" >Adjuntar Archivo</button>
+                        </div>
+                        <div class="col-md-6 col-12 text-right pt-3">
+                            <button id="anterior" type="button" class="btn btn-bluegray  col-12  col-md-4 mb-3 active mr-3" name="prev" (click)="cambiar_pestana_anterio()">Anterior</button>
+                            <button id="siguiente" type="button" class="btn btn-secondary col-12  col-md-4 mb-3 " name="next" (click)="cambiar_pestana_siguiente()">Siguiente</button>
+                            <button id="guardar" type="button" class="btn btn-secondary col-12  col-md-4 mb-3 " name="aprobar" (click)="guardarCliente()">Actualizar</button>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

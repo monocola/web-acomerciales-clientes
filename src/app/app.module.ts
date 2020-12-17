@@ -27,9 +27,18 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import  localeEs  from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { ContactosClienteComponent } from './contactos-cliente/contactos-cliente.component';
+import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
+import { EditarClienteDatosGeneralesComponent } from './editar-cliente/editar-cliente-datos-generales/editar-cliente-datos-generales.component';
+import { EditarClienteDatosComercialesComponent } from './editar-cliente/editar-cliente-datos-comerciales/editar-cliente-datos-comerciales.component';
+import { EditarClienteDatosFiancierosComponent } from './editar-cliente/editar-cliente-datos-fiancieros/editar-cliente-datos-fiancieros.component';
+import { FileClienteComponent } from './file-cliente/file-cliente.component';
+import { VerListadoClientesComponent } from './clientes/ver-listado-clientes/ver-listado-clientes.component';
+import { SubirArchivoClienteComponent } from './editar-cliente/subir-archivo-cliente/subir-archivo-cliente.component';
+import { VerlistadoProductosClienteComponent } from './clientes/verlistado-productos-cliente/verlistado-productos-cliente.component';
+import { NuevoProductoClienteComponent } from './clientes/nuevo-producto-cliente/nuevo-producto-cliente.component';
+import { NuevoSectorClienteComponent } from './clientes/nuevo-sector-cliente/nuevo-sector-cliente.component';
+import { FiltrarClienteComponent } from './filtrar-cliente/filtrar-cliente.component';
 registerLocaleData(localeEs, 'es');
-
-
 
 
 @NgModule({
@@ -47,8 +56,18 @@ registerLocaleData(localeEs, 'es');
     GenerarClienteDatosFinancieraComponent,
     NotificationComponent,
     ContactosClienteComponent,
+    EditarClienteComponent,
+    EditarClienteDatosGeneralesComponent,
+    EditarClienteDatosComercialesComponent,
+    EditarClienteDatosFiancierosComponent,
+    FileClienteComponent,
+    VerListadoClientesComponent,
+    SubirArchivoClienteComponent,
+    VerlistadoProductosClienteComponent,
+    NuevoProductoClienteComponent,
+    NuevoSectorClienteComponent,
+    FiltrarClienteComponent,
  
-    
     ],
   imports: [
     BrowserModule,
@@ -65,6 +84,7 @@ registerLocaleData(localeEs, 'es');
     AutoCompleteModule,
     MultiSelectModule,
     RadioButtonModule,
+    
 
     
  

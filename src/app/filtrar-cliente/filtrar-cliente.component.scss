@@ -1,0 +1,318 @@
+@import "src/assets/scss/01-elements/variables";
+@import "src/assets/scss/01-elements/mixins";
+.filter {
+    //width: auto;
+    background: white;
+    position: absolute;
+    z-index: 1;
+    box-shadow: 0 4px 10px rgba(61, 61, 61, 0.24);
+    border-radius: 8px;
+    margin: 0.75rem 0.1rem;
+    right: 8px;
+    top: 100%;
+    max-width: 450px;
+}
+
+.h-ml {
+    height: 48px;
+}
+
+.w-70-lg {
+    @include mq('tablet', min) {
+        width: 70%;
+    }
+}
+
+@include mq('phone-wide', min) {
+    .filter-group-row {
+        .filter-btn {
+            margin-top: .5rem;
+        }
+    }
+    .filter-search {
+        margin-top: 1rem;
+    }
+}
+
+.filter-search {
+    @include mq('tablet', min) {
+        padding-left: 0;
+        margin-top: 0rem;
+    }
+    @media (min-width:768px) {
+        .filter-search {
+            margin-top: 0
+        }
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    .filter {
+        top: 52%;
+        right: 1%;
+    }
+}
+
+.filter-actions {
+    justify-content: flex-end;
+}
+
+@media only screen and (max-width: 479px) {
+    .filter-actions {
+        flex-direction: column-reverse;
+    }
+}
+
+.filter-actions.f-comision {
+    justify-content: space-between !important;
+}
+
+@media only screen and (max-width: 479px) {
+    .filter-title {
+        display: none;
+    }
+}
+
+.filter-title-mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 479px) {
+    .filter-title-mobile {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    .filter-download {
+        display: none;
+    }
+    .desktop-title {
+        display: none !important;
+    }
+}
+
+.filter-download-mini {
+    display: none;
+    height: 35px;
+    margin-left: 0.5rem;
+}
+
+@media only screen and (max-width: 479px) {
+    .filter-download-mini {
+        display: inline-block;
+    }
+}
+
+.filter-group {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: relative;
+    /*aqui se modifico*/
+}
+
+.filter-group-row {
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+@media only screen and (max-width: 479px) {
+    .filter-group-row {
+        flex-direction: column-reverse;
+    }
+}
+
+.filter-btn {
+    text-align: right;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+@media only screen and (max-width: 479px) {
+    .filter-btn {
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+.filter-header {
+    margin: 1rem 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.filter-header .nav-item {
+    margin-bottom: 0.75rem;
+}
+
+.filter-header .nav-item .nav-link {
+    background-color: transparent;
+    font-family: "Poppins-Bold";
+    color: #323c477e;
+}
+
+.filter-header .nav-item .nav-link.active,
+.filter-header .nav-item .nav-link:hover {
+    border-radius: 10px;
+    background: #F5F6F8;
+    color: #323C47;
+    background: #F5F6F8;
+}
+
+.filter-header .nav-item .nav-link.dark,
+.filter-header .nav-item .nav-link.dark:hover {
+    border-radius: 10px;
+    // background: #5A6770;
+    color: #323C47;
+    border-left: 2px solid #FF6A35;
+    border-bottom-left-radius: 0%;
+    border-top-left-radius: 0%;
+    .ico-secondary path {
+        fill: #ffffff !important;
+    }
+}
+
+.filter-header .nav-item .nav-link:focus {
+    outline: none;
+}
+
+.filter-content {
+    height: 190px;
+    overflow-x: auto;
+}
+
+.filter-content .form-check-label {
+    display: block;
+    text-align: left;
+}
+
+.filter-menu {
+    width: 190px;
+    @media only screen and (max-width: 993px) {
+        width: 100%;
+    }
+}
+
+.filter-body {
+    width: calc(100% - 190px);
+    @media only screen and (max-width: 993px) {
+        width: 100%;
+    }
+}
+
+.filter .arrow-top {
+    position: relative;
+}
+
+.filter .arrow-top:after {
+    content: "";
+    position: absolute;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-bottom: 10px solid #ffffff;
+    top: -8px;
+    right: 7%;
+}
+
+@media only screen and (max-width: 993px) {
+    .filter .arrow-top:after {
+        top: -8px;
+        right: 18%;
+    }
+    .ui-datepicker .ui-datepicker-next {
+        right: 3em;
+    }
+    .ui-datepicker .ui-datepicker-prev {
+        left: 3em;
+    }
+}
+
+.filter.calendar {
+    min-width: 850px;
+    @media only screen and (max-width: 993px) {
+        min-width: unset;
+    }
+}
+
+.input-group .inner-addon .icon {
+    padding: 5px 15px;
+}
+
+.input-group .inner-addon.w-input {
+    width: calc(100% - 150px);
+}
+
+.input-group .inner-addon.w-input .form-control {
+    background: #FFFFFF !important;
+    border: 0.5px solid #C2CFE0 !important;
+    box-sizing: border-box;
+    border-radius: 8px;
+    height: 35px;
+}
+
+.form-check-input {
+    border: 2px solid #FF6A35;
+}
+
+.form-check-input[type=radio]:checked {
+    background-color: #FF6A35;
+    border-color: #FF6A35;
+}
+
+.accordion {
+    .card-body {
+        padding: 0;
+    }
+}
+
+.nav-pills {
+    flex-direction: column;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0.25rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: none;
+}
+
+.content-subTitle {
+    font-size: 20px !important;
+}
+
+.text-filter-container {
+    width: 60%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.container-btns-filter {
+    direction: ltr;
+    place-content: flex-end;
+}
+
+.container-text-filter {
+    direction: ltr;
+    p {
+        display: flex;
+        padding-top: .5rem;
+        align-self: flex-start;
+    }
+}
+
+@media (min-width: 480px) {
+    .container-btns-filter {
+        direction: rtl;
+        place-content: flex-start;
+    }
+}
+
+
+/*# sourceMappingURL=filtrar.component.css.map */

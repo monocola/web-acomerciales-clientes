@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   url_global:"",
   port_clientes:    'http://localhost:7100', //'https://7wm9bk5qsj.execute-api.us-east-1.amazonaws.com/dev',
+  port_clientes_onpremise:    'http://localhost:7099',
+  port_sunat:       'https://7wm9bk5qsj.execute-api.us-east-1.amazonaws.com/dev/v1/sunat/ruc',
   //port_capacidades: 'http://localhost:7100',
   //port_citas:       'http://localhost:7099',
   //port_utilidades:  'https://7wm9bk5qsj.execute-api.us-east-1.amazonaws.com/dev',

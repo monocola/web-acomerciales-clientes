@@ -1,0 +1,32 @@
+<div class="container container-history">
+    <div class="row">
+        <div class="col-12 mt-4 mb-3">
+            <p class="tpp-close" (click)="cerrar()">
+                <ico-close class="ico-primary ico-close pointer"></ico-close>
+            </p>
+            <h1 class="modal-title">Agregar Nuevo Producto</h1>
+        </div>
+    </div>
+   
+    <div id="sector">
+        <div class="d-flex">
+            <div class="form-group col-12 mb-3 ">
+                <label for="un" class="col-sm-9 tpp-label">Nombre Producto:</label>
+                <div class="col-sm-12 text-left">
+                    <input id="nombreproducto" autocomplete="off" class="form-control input-tpp" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12 d-flex justify-content-end align-content-end">
+            <button  class="btn btn-outline-primary col-6  col-md-2 mb-2" data-toggle="dropdown" (click)="cerrar()"
+                aria-haspopup="true" aria-expanded="false" style="margin-right:10px;">
+                Cerrar
+            </button>
+            <button  class="btn btn-secondary col-6  col-md-2 mb-2" data-toggle="dropdown" (click)="nuevoProducto()"
+                aria-haspopup="true" aria-expanded="false">
+                Agregar
+            </button>
+        </div>
+    </div>
+</div>
+

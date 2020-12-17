@@ -1,12 +1,13 @@
 <div class="">
     <div class="row">
         <div class="col-sm-12 mt-4 mb-3">
-            <p class="tpp-close">
+            <p class="tpp-close" (click)="cerrar()">
                 <ico-close class="ico-primary ico-close pointer"></ico-close>
             </p>
-            <h1 class="modal-title">Registrar Cliente {{ pestana}}</h1>
+            <h1 class="modal-title">Registrar Cliente</h1>
         </div>
     </div>
+    
     <div class="row d-flex justify-content-center">
         <div class="card step-progress mb-4 p-0" style="width: 95%;overflow-x: hidden;">
             <div class="step-slider w-100">
@@ -23,9 +24,21 @@
                 </div>
 
             </div>
-
+            
            
             <div class="step-content w-100">
+                <div class="container">
+                    <div class="form-group col-11 d-flex justify-content-end align-content-end">
+                        <button (click)="listadoClientes()"  class=" btn btn-bluegray hide-mobile  mb-2" data-toggle="dropdown" *ngIf="pestana==1"
+                            aria-haspopup="true" aria-expanded="false">
+                            <ico-documento class="ico-white pr-2"></ico-documento>Ver Listado de Clientes
+                        </button>
+                        <button (click)="listadoProductosYsectores()"  class=" btn btn-bluegray hide-mobile  mb-2" data-toggle="dropdown" *ngIf="pestana==2"
+                            aria-haspopup="true" aria-expanded="false">
+                            <ico-documento class="ico-white pr-2"></ico-documento>Ver Listado de Productos y Sectores
+                        </button>
+                    </div>
+                </div>
                 <div class="container">
                     <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
                 </div>
@@ -44,8 +57,7 @@
                 <div class="">
                     <div class="row justify-content-center">
                         <div class="col-md-5  col-12 text-left">
-                            <button type="button" class="btn btn-outline-primary  mb-1 active mr-3" name="cancelar">Cancelar</button>
-                            <button id="subirarchivo" type="button" class="btn btn-primary" name="subir" >Adjuntar Archivo</button>
+                            <button type="button" class="btn btn-outline-primary  mb-1 active mr-3" (click)="cerrar()" name="cancelar">Cancelar</button>
                         </div>
                         <div class="col-md-6 col-12 text-right pt-3">
                             <button id="anterior" type="button" class="btn btn-bluegray  col-12  col-md-4 mb-3 active mr-3" name="prev" (click)="cambiar_pestana_anterio()">Anterior</button>

@@ -1,0 +1,79 @@
+<div class="row mb-2">
+    <div class="col-lg-12 col-6 -title d-flex align-items-center flex-wrap">
+        <h1 class="title content-title mb-0 desktop-title">{{ title }} </h1>
+    </div>
+</div>
+<div class="row mb-3 filter-actions" [ngClass]="{ 'f-comision': manual }">
+    <div class="col-lg-6 col-md-8 filter-download" *ngIf="manual">
+        <button class="btn btn-secondary btn-ml" >
+      <ico-edit-paper class="ico-white mr-2"></ico-edit-paper>
+      Registro Manual
+    </button>
+        <button class="ml-2 btn btn-bluegray h-ml" >
+      <ico-descarga class="ico-white mr-2"> </ico-descarga>Reporte
+    </button>
+    </div>
+
+    <div class="col-lg-6 col-md-4 filter-group filter-search">
+        <div class="row filter-group-row w-100">
+            <div class="filter-btn w-100">
+                <div class="filter-title-mobile">
+                    <div class="d-flex align-items-center flex-wrap">
+                        <h1 class="title content-title mb-3">{{ title }}</h1>
+                        <h2></h2>
+                    </div>
+                </div>
+                <div class="input-group-append w-100">
+                    <div class="d-flex flex-wrap container-btns-filter">
+                        <button class="btn btn-bluegray btn-lg" type="button" (click)="openFiltro()">
+                    <ico-option class="ico-white"></ico-option>
+                    Filtrar
+                    </button>
+                    </div>
+                    tipo: {{ tipo}}
+                    <div class="col-lg-12" [ngStyle]="{ display: filtro ? 'block' : 'none' }">
+                        <div class="filter container-fluid" [ngClass]="{ calendar: calendar }">
+                            <div class="row arrow-top">
+                                <div class="col-lg-2 col-md-12 col-12 filter-menu">
+                                    <ul class="nav nav-pills filter-header border-right" id="filter">
+                                        <li class="nav-item" *ngFor="let menu of menus; let i = index">
+                                            <button class="nav-link" [id]="menu.name" [ngClass]="{
+                                                active: menu.value == tipo,
+                                                dark: menu.hierarchy
+                                                }" (click)="showMenu(menu.name)">
+                                                {{ menu.name }}
+                                                <ico-arrow-right class="ico-secondary"></ico-arrow-right>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-auto col-md-12 col-12 filter-body">
+                                    <div class="container-fluid p-0">
+                                        <div class="row mb-3 mt-3">
+                                            <label for="search"></label>
+                                            <div class="col-lg-12 inner-addon left-addon">
+                                                <div class="col-lg-12 inner-addon left-addon">
+                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Número Documento" *ngIf="tipo == 1" />
+                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Nombre Producto" *ngIf="tipo == 2"/>
+                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Razón Social" *ngIf="tipo == 3"/>
+                                                    <ico-search class="icon ico-disabled"></ico-search>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 text-right mt-2 mb-4">
+                                    <button type="button" pButton label="Cerrar" (click)="close()" class="btn btn-outline-primary btn-md mr-3"></button>
+                                    <button type="submit" (click)="buscar(tipo)" pButton label="Aplicar" class="btn btn-secondary btn-md"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

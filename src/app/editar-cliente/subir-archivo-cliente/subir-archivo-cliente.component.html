@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row align-content-end">
+      <div class="col-sm-12 text-right">
+        <br/>
+      </div>
+    </div>
+    <div class="row justify-content-center mb-3">
+      <div class="col-sm-12">
+        <h1 class="title primary p-0">Adjuntar Archivo</h1>
+        <p class="mt-3 mb-3">
+          
+        </p>
+        <p class="mt-3">Selecciona o arrastra tu archivo:</p>
+      </div>
+    </div>
+    <div class="row m-b-1 justify-content-center">
+      <div class="col-sm-12" >
+        <div class="box" appNgDropFiles  (mouseSobre)="estaSobreElemento = $event" [ngClass]="{ 'file-over': estaSobreElemento }">
+          <label for="file" *ngFor="let archivo of archivos"> </label>
+          
+          <div class="box__input">
+            <input class="box__file" type="file" name="files" id="file" (change)="fileBrowseHandler($event.target)"/>
+            <label for="file"><img src="assets/images/file.png" alt="file"></label>
+            <button class="box__button" type="submit">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-sm-12 text-right mt-2 mb-2">
+        <button type="button" class="btn btn-outline-primary btn-md mr-3" (click)="cerrar()">Cancelar</button>
+        <button type="submit" class="btn btn-secondary " [disabled]="archivos.length == 0"><ico-upload class="mr-3"></ico-upload>Subir evidencia</button>
+      </div>
+    </div>
+  </div>
+  

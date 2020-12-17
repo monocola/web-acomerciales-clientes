@@ -1,0 +1,30 @@
+:host ::ng-deep .form-group p-dropdown {
+    min-width: 100%;
+    .ui-dropdown {
+        min-width: 100%;
+    }
+    .ui-dropdown {
+        background: #ffffff00 !important;
+        border: 0.5px solid #C2CFE0 !important;
+        border-radius: 8px !important;
+        .ui-dropdown-label {
+            background: #ffffff00 !important;
+            font-size: 1rem;
+        }
+        .ui-dropdown-trigger {
+            background: #ffffff00 !important;
+        }
+        .ui-dropdown-trigger {
+            .ui-dropdown-trigger-icon {
+                color: #ff6a35;
+            }
+        }
+    }
+}
+.space{
+    height: 20px;
+}
+.p-autocomplete{ 
+    width: 100%; 
+    
+}

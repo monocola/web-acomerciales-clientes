@@ -1,0 +1,14 @@
+@import "../../../assets/scss/01-elements/mixins";
+.container-history {
+    min-width: 600px;
+}
+
+@include mq('tablet-small', max) {
+    .container-history {
+        min-width: 100%;
+    }
+}
+.p-autocomplete{ 
+    width: 100%; 
+    
+}

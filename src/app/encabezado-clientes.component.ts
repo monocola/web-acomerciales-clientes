@@ -15,6 +15,8 @@ export class EncabezadoClientesComponent implements OnInit {
   @Input('header') lista = [];
   @Input('fact') fact: boolean;
   @Input('action') action: boolean = true;
+  busqueda:any;
+  tipodebusqueda:any;
   selectedAll: string[] = [];
   ref: DynamicDialogRef;
 
@@ -26,10 +28,17 @@ export class EncabezadoClientesComponent implements OnInit {
     this.ref = this.dialogService.open(GenerarClienteComponent, {
       //width: '100%',
       styleClass: 'comision',
-      closeOnEscape: true,
-      dismissableMask: true,
+      closeOnEscape: false,
+      dismissableMask: false,
       baseZIndex: 10000,
       showHeader: false
     });
   }
+
+  busquedaInput(evt){
+    this.busqueda = evt;
+  }
+  tipovariablebusqueda(evt){
+    this.tipodebusqueda = evt;
+   }
 }
