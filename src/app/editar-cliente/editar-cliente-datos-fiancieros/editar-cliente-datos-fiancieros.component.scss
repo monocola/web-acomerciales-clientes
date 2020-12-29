@@ -299,3 +299,25 @@
         padding: 0.25rem;
     }
 }
+.pater > div {
+    
+    $small: 400px;
+    $medium: 1000px;
+    text-align: center;
+
+  
+
+    .smth {
+    //some CSS
+    @media (max-width: $small) {
+        
+    }
+    @media (min-width: $medium) {
+        display: inline-block;
+        width: 40%;
+         /*** Sólo a efectos de visualización ***/
+        margin: 0;
+    }
+    }
+  }
+

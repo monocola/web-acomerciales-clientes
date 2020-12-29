@@ -2,6 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { GlobalClient } from 'src/app/commons/Clienteglobal';
+import { EconomicActivity } from 'src/app/model/economicactivity';
+import { Persona } from 'src/app/model/persona';
+import { TipoDocumento } from 'src/app/model/tipodocumento';
+import { EconomicActivityService } from 'src/app/services/aconomicactivity.service';
+import { PersonaService } from 'src/app/services/persona.service';
+import { StoreService } from 'src/app/services/store.service';
+import { TipoDocumentoService } from 'src/app/services/tipodocumento.service';
 interface typeOfSelect {
   label: string;
 }
@@ -13,7 +20,7 @@ declare var $: any;
 })
 export class EditarClienteDatosGeneralesComponent implements OnInit {
 
-  constructor(public dialogService: DialogService, public config: GlobalClient) { }
+
 
   @Output()
   enviar: EventEmitter<string> = new EventEmitter<string>();
@@ -42,13 +49,69 @@ export class EditarClienteDatosGeneralesComponent implements OnInit {
   date2: Date;
   es: any;
   ref: DynamicDialogRef;
+  persona: GlobalClient;
+  actividades: EconomicActivity;
+  listadoTipoDocumentos: any;
+  tipoDocumentoID:number;
+  tipodoc:number;
 
+  
+  constructor(public dialogService: DialogService,
+    public config: GlobalClient,
+    private store: StoreService,
+    private personaService: PersonaService,
+    private economicActivityService: EconomicActivityService,
+    private tipodeDocumentoService: TipoDocumentoService) { }
 
   ngOnInit(): void {
-    //this.clienteExistente();
+
+    var objTipoDocumento = new TipoDocumento();
+    this.tipodeDocumentoService.obtenerTipoDocumento(objTipoDocumento).subscribe(
+      (dataTipoDocumentos) => {
+        this.listadoTipoDocumentos = dataTipoDocumentos;
+        //console.log("tipo de documentos: " + JSON.stringify(this.listadoTipoDocumentos));
+      }, (error) => {
+        console.log("tipo de documentos error: " + JSON.stringify(error));
+      })
+
+    const obj = JSON.parse(JSON.stringify(this.store.cliente));
+    $("#tipodocumento").val(obj.tipo_documento);
+    $("#numerodocumento").val(obj.numerodocumento).prop("disabled", true);
+    $("#nombrecomercial").val(obj.nombrecomercial);
+    $("#razonsocial").val(obj.razon_social);
+    $("#fechainscripcion").val(obj.inicioactividad).prop("disabled", true);
+    $("#condicion").val(obj.condicionsunat).prop("disabled", true);
+    $("#estado").val(obj.estadosunat).prop("disabled", true);
+    $("#direccionfiscal").val(obj.direccionfiscal);
+    $("#codigosap").val(obj.codigosap).prop("disabled", true);
+    $("#dominio").val(obj.dominio);
+    this.tipoDocumentoID = obj.tipodocumento;
 
 
+    /* almacenamiento de atributos en variable global  */
+    this.config.setGlobalEmpresaID(obj.id);
+    this.config.setGlobalNumeroDocumento(obj.numerodocumento);
+    this.config.setGlobalNombreRazonSocial(obj.razon_social);
+    this.config.setGlobalNombreComercial(obj.nombrecomercial);
+    this.config.setGlobalDireccionFiscal(obj.direccionfiscal);
+    this.config.setGlobalDominio(obj.dominio);
+       
 
+    
+    var objActivity = new EconomicActivity();
+    objActivity.id = obj.actividadeconomica;
+    this.economicActivityService.obtenerActvidadEconomicasPorIdOnPremise(objActivity).subscribe(
+      (dataActivities) => {
+        this.actividades = dataActivities;
+        $.each(this.actividades, function (i, item) {
+          var actividad = item.id + " - " + item.nombreactividad;
+          $("#actividadeconomica").val(actividad).prop("disabled", true);
+        });
+        //alert(this.actividades.nombreactividad);
+
+      })
+
+     
   }
 
   onTodayClick($event) {
@@ -102,93 +165,51 @@ export class EditarClienteDatosGeneralesComponent implements OnInit {
 
   }
   /* data temporal de pestaña datos generales */
-  enviarTipodocumento(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalTipoDocumento(undefined);
-    }else{
-      this.config.setGlobalTipoDocumento(evt.target.value);
+  enviarTipoDocumento(){
+    var tipodocumento = ((document.getElementById("tipodocumento") as HTMLInputElement).value);
+    this.tipodoc = Number(tipodocumento);
+ 
+  if (this.tipodoc == 0) {
+      this.config.setGlobalTipoDocumento(null);
+    } else {
+      this.config.setGlobalTipoDocumento(this.tipodoc);
     }
-   
+ 
+
   }
-  enviarNumeroDocumento(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalNumeroDocumento(undefined);
-    }else{
-      this.config.setGlobalNumeroDocumento(evt.target.value);
-    }
-    
-  }
+
   enviarRazonSocial(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalNombreRazonSocial(undefined);
-    }else{
+
+    if (evt.target.value == "") {
+      this.config.setGlobalNombreRazonSocial(null);
+    } else {
       this.config.setGlobalNombreRazonSocial(evt.target.value);
     }
-    
+
   }
   enviarNombreComercial(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalNombreComercial(undefined);
-    }else{
+    if (evt.target.value == "") {
+      this.config.setGlobalNombreComercial(null);
+    } else {
       this.config.setGlobalNombreComercial(evt.target.value);
-    }
-   
-  }
-  enviarFechaInscripcion(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalFechaDeInscripcion(undefined);
-    }else{
-      this.config.setGlobalFechaDeInscripcion(evt.target.value);
-    }
-  
-  }
-  enviarCondicion(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalCondicion(undefined);
-    }else{
-      this.config.setGlobalCondicion(evt.target.value);
-    }
-  
-  }
-  enviarEstado(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalEstado(undefined);
-    }else{
-      this.config.setGlobalEstado(evt.target.value);
     }
   
   }
   enviarDireccionFiscal(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalDireccionFiscal(undefined);
-    }else{
+    if (evt.target.value == "") {
+      this.config.setGlobalDireccionFiscal(null);
+    } else {
       this.config.setGlobalDireccionFiscal(evt.target.value);
     }
-   
+
   }
-  enviarActividadEconomica(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalActividadEconomica(undefined);
-    }else{
-      this.config.setGlobalActividadEconomica(evt.target.value);
-    }
-   
-  }
-  /* data temporal de pestaña datos sap*/
-  enviarcodigoSap(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalCodigoSap(undefined);
-    }else{
-      this.config.setGlobalCodigoSap(evt.target.value);
-    }
-   
-  }
+ 
+ 
   enviarDominio(evt) {
-    if(evt.target.value  == ""){
-      this.config.setGlobalDominio(undefined);
-    }else{
+    if (evt.target.value == "") {
+      this.config.setGlobalDominio(null);
+    } else {
       this.config.setGlobalDominio(evt.target.value);
     }
-   
   }
 }

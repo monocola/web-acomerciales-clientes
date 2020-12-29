@@ -10,6 +10,6 @@ export class AppComponent {
   title = 'tpp-web-lcl-reservas';
 
   handleClick(event) {
-    alert(event);
+ 
 }
 }

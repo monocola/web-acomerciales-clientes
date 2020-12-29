@@ -1,23 +1,23 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
-import { GlobalClient } from '../commons/Clienteglobal';
 import { PlazoCredito } from '../model/plazocredito';
 import { Riesgo } from '../model/riesgo';
 import { EstadoSuspension } from '../model/suspension';
 import { EmpresaSuspendedora } from '../model/suspensionempresa';
 import { TasaInteresL } from '../model/tasalibro';
-import { TipoOperador } from '../model/tipooperador';
 import { EmpSuspService } from '../services/empsuspenService.service';
 import { EstadoSuspensionService } from '../services/estadosuspension.service';
 import { PlazoCreditoService } from '../services/plazocredito.service';
 import { RiesgoService } from '../services/riesgo.service';
+import { StoreService } from '../services/store.service';
 import { TasaInteresLService } from '../services/tasainteresl.service';
 
 declare var $: any;
 @Component({
   selector: 'app-generar-cliente-datos-financiera',
   templateUrl: './generar-cliente-datos-financiera.component.html',
-  styleUrls: ['./generar-cliente-datos-financiera.component.scss']
+  styleUrls: ['./generar-cliente-datos-financiera.component.scss'],
+  providers: [DatePipe]
 })
 export class GenerarClienteDatosFinancieraComponent implements OnInit {
 
@@ -33,6 +33,7 @@ export class GenerarClienteDatosFinancieraComponent implements OnInit {
   riesgoSeleccion: any;
   selectedTipos: EmpresaSuspendedora[];
   fechaActual:Date;
+  fechaActual2:any;
   usuarioLogin:string;
 
 
@@ -41,7 +42,8 @@ export class GenerarClienteDatosFinancieraComponent implements OnInit {
     private plazocredito: PlazoCreditoService,
     private tasaService: TasaInteresLService,
     private riesgoService: RiesgoService,
-    private config: GlobalClient) {
+    public datepipe: DatePipe,
+    public store: StoreService) {
 
   }
 
@@ -49,6 +51,7 @@ export class GenerarClienteDatosFinancieraComponent implements OnInit {
     $("#fecharegistro").prop("disabled", true);
     $("#usuario").prop("disabled", true);
     this.fechaActual = new Date();
+    this.fechaActual2 = this.datepipe.transform(this.fechaActual, 'dd-MM-yyyy');
     this.usuarioLogin = localStorage.getItem("usurariologin");
 
     var objEstadoSuspension = new EstadoSuspension();
@@ -64,7 +67,7 @@ export class GenerarClienteDatosFinancieraComponent implements OnInit {
       })
 
     var objPlazoCredito = new PlazoCredito();
-    this.plazocredito.obtenerPlazoCredito(objPlazoCredito).subscribe(
+    this.plazocredito.obtenerPlazoCreditoOnPremise(objPlazoCredito).subscribe(
       (dataPlazoCredito) => {
         this.listaPlazocredito = dataPlazoCredito;
       })
@@ -76,7 +79,7 @@ export class GenerarClienteDatosFinancieraComponent implements OnInit {
       })
 
     var objRiesgo = new Riesgo();
-    this.riesgoService.obtenerRiesgos(objRiesgo).subscribe(
+    this.riesgoService.obtenerRiesgosOnPremise(objRiesgo).subscribe(
       (dataRiesgo) => {
         this.listadoResigos = dataRiesgo;
       })
@@ -84,46 +87,30 @@ export class GenerarClienteDatosFinancieraComponent implements OnInit {
 
   }
   onSelectPlazoCredito(pcredito: PlazoCredito) {
-    this.config.setGlobalPlazoCreditoId(pcredito.id);
+  
+    if (pcredito.id == null) {
+      this.store.cliente.setGlobalPlazoCreditoId(null);
+    } else {
+      this.store.cliente.setGlobalPlazoCreditoId(pcredito.id);
+    }
   }
 
-  onSelectTasaInteresL(tsaInteresL: TasaInteresL) {
-    this.config.setGlobalTasaInteresLibroId(tsaInteresL.id);
+  enviarTasaInteresLibro(evt) {
+ 
+    this.store.cliente.setGlobalTasaInteresLibroId(evt.target.value);
   }
   onSelectRiesgo(riesgo: Riesgo) {
-    this.config.setGlobalCalificacionRiesgoId(riesgo.id);
+
+    this.store.cliente.setGlobalCalificacionRiesgoId(riesgo.id);
   }
 
-  cambiarTipoSuspension(id) {
-    this.config.setGlobalEstadoSuspension(id);
-  }
-
-  enviarMotivoSuspension(evt) {
-    this.config.setGlobalMotivoSuspension(evt.target.value);
-  }
-
-  enviarInstruccionRecibida(evt) {
-    this.config.setGlobalInstruccionRecibida(evt.target.value);
-  }
-
+  
   enviarTasaInteresEspecial(evt) {
-    this.config.setGlobalTasaInteresEspecial(evt.target.value);
+    this.store.cliente.setGlobalTasaInteresEspecial(evt.target.value);
   }
 
  
-  seleccionarListadoEmp(){
-      var listadoTiposCadena = [];
-      if(listadoTiposCadena == []){
 
-      }else{
-        this.selectedTipos.forEach(element => {
-          listadoTiposCadena.push(element.id);
-          this.config.setGlobalListadoEmpSuspen(listadoTiposCadena.toString());
-        });
-      }
-      
-  
-    }
 
 
   

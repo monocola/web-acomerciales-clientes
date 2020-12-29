@@ -53,9 +53,9 @@
                                             <label for="search"></label>
                                             <div class="col-lg-12 inner-addon left-addon">
                                                 <div class="col-lg-12 inner-addon left-addon">
-                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Número Documento" *ngIf="tipo == 1" />
-                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Nombre Producto" *ngIf="tipo == 2"/>
-                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Razón Social" *ngIf="tipo == 3"/>
+                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Número Documento" autocomplete="off" *ngIf="tipo == 1" />
+                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Nombre Producto" autocomplete="off" *ngIf="tipo == 2"/>
+                                                    <input id="busqueda" class="form-control input-fill" type="text" placeholder="Ingrese Razón Social" autocomplete="off" *ngIf="tipo == 3"/>
                                                     <ico-search class="icon ico-disabled"></ico-search>
                                                 </div>
                                             </div>
@@ -77,3 +77,5 @@
         </div>
     </div>
 </div>
+<app-encabezado-clientes [header]="lista" [fact]="false"></app-encabezado-clientes>
+<app-cuerpo-tabla-clientes #cuerpoTabla></app-cuerpo-tabla-clientes>

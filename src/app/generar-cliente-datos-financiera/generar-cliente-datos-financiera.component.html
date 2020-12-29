@@ -15,7 +15,7 @@
                                     <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap" *ngFor="let sus of listaSuspensiones">
                                         <div class="form-check form-check-inline flex-wrap w-cnt2 my-2">
                                             <div >
-                                                <input id="tipo_retiro{{ sus.id }}" name="tipo" class="form-check-input mr-0 mr-lg-3" type="radio" [checked]="sus.id == 1"  (change)="cambiarTipoSuspension(sus.id)" value="t{{ sus.id }}" disabled >
+                                                <input id="tipo_retiro{{ sus.id }}" name="tipo" class="form-check-input mr-0 mr-lg-3" type="radio" [checked]="sus.id == 1"  value="t{{ sus.id }}" disabled >
                                                 <label class="form-check-label font-normal ml-2" for="">{{ sus.tipoestado}} </label>
                                             </div>
                                         </div>
@@ -90,15 +90,7 @@
                     <label for="dni" class="w-100 col-form-label text-left">Tasa Interés Libro( % ):</label>
                     <div class="w-100  position-relative ">
                         <div class="w-100 ">
-                            <p-dropdown 
-                            [options]="tasaInteresListado" 
-                            name="tazainteres"  
-                            [style]="{'width':'100%', 'text-align': 'left'}"   
-                            [(ngModel)]="tasaSeleccion"
-                            optionLabel="tazainteres"
-                            placeholder="Seleccione..."
-                            (onChange)="onSelectTasaInteresL(tasaSeleccion)"
-                            ></p-dropdown>
+                            <input id="tasainteresespecial" class="form-control input-tpp" type="text" (blur)="enviarTasaInteresLibro($event)">
                         </div>
                     </div>
                 </div>
@@ -130,13 +122,13 @@
                     <div class="col-sm-6">
                         <label for="nombre" class="w-100  col-form-label text-left ">Fecha de Registro:</label>
                         <div class="w-100 ">
-                            <input id="fecharegistro" class="form-control input-tpp" type="text" value="{{  fechaActual  | date: 'fullDate':	'EEEE, MMMM d, y'}}">
+                            <input id="fecharegistro" class="form-control input-tpp text-center" type="text" value="{{ fechaActual2 }}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label for="dni" class="w-100 col-form-label text-left">Usuario de Registro:</label>
                         <div class="w-100  position-relative text-right ">
-                            <input id="usuario" class="form-control input-tpp" type="text" value="{{ usuarioLogin }}">
+                            <input id="usuario" class="form-control input-tpp text-center" type="text" value="{{ usuarioLogin }}">
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 <div class="">
+    <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
     <div class="row">
         <div class="col-sm-12 mt-4 mb-3">
             <p class="tpp-close" (click)="cerrar()">
@@ -23,8 +24,8 @@
                 </div>
 
             </div>
-
-           
+          <p style="font-size: 13px;">  {{ config  | json}}</p>
+       
             <div class="step-content w-100">
                 <div class="container">
                     <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>

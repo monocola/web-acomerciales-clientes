@@ -5,6 +5,7 @@ import { port_clientes_onpremise } from '../public/urls';
 import { catchError } from 'rxjs/operators';
 import { EmpresaSunat } from '../model/empresasunat';
 import { Cliente } from '../model/cliente';
+import { Persona } from '../model/persona';
 
 
 @Injectable({
@@ -22,16 +23,7 @@ export class EmpresaService {
     return this.http.get(`${this.baseEndpointConsultaSunatRuc}/${id}`);
   }
 
-  obtenerClientePorNumeroDocumento(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.baseEndpointCLiente}/company`, cliente, { headers: this.httpHeaders }).pipe(
-      catchError(e => {
-        if (e.status == 404) {
-          return throwError(e);
-        }
-        return throwError(e);
-      })
-    );
-  }
+ 
  
 
 

@@ -4,7 +4,6 @@
     </div>
 </div>
 <div class="row">
-    <app-encabezado-clientes [header]="lista" [fact]="false"></app-encabezado-clientes>
-    <app-cuerpo-tabla-clientes ></app-cuerpo-tabla-clientes>
+    <app-filtrar-cliente (busqueda)="busquedaInput($event)" (tipobusqueda)="tipovariablebusqueda($event)"></app-filtrar-cliente>
 </div>
 

@@ -15,31 +15,21 @@
                     [style]="{'width':'100%'}"
                     [inputStyle]="{'width':'100%'}"
                     class="p-autocomplete"
+                    [forceSelection]="true"
                     (onSelect)="onSelect($event)">
-                    </p-autoComplete>
+                </p-autoComplete>
                 </div>
                 
                 <div class="col-sm-6 text-left">
                     <label for="dni" class="w-100 col-form-label text-left">Sector:</label>
                     <div class="w-100  position-relative ">
-                        <p-autoComplete  
-                        [inputId]="'sectorid'"
-                        field="sectorname"
-                        [minLength]="3"
-                        [suggestions]="listaSectoresProd"
-                        (completeMethod)="searchSector($event)"
-                        [style]="{'width':'100%'}"
-                        [inputStyle]="{'width':'100%'}"
-                        class="p-autocomplete"
-                        (onSelect)="onSelectSector($event)"
-                        >
-                    </p-autoComplete>
-                    </div>
+                        <input id="sector" class="form-control input-tpp"  type="text" >
+                      </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Ejecutivo:</label>
                     <div class="w-100  position-relative ">
-                        <input id="ejecutivo" class="form-control input-tpp" type="text" (blur)="enviarEjecutivo($event)" autocomplete="off">
+                        <input id="ejecutivo" class="form-control input-tpp" type="text"  autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -78,7 +68,7 @@
                 <label for="nombre" class="w-100  col-form-label text-left">Seleccione Tipo de Operador(es):</label>
                 <div class="w-100  text-left">
                     <p-multiSelect
-                            [inputId]= "'valores'"
+                            [inputId]= "'che'"
                             [style]="{'width':'100%'}"  
                             [options]="listarTipoOperadores" 
                             [(ngModel)]="selectedTipos" 

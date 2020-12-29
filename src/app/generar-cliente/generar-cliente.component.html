@@ -7,9 +7,11 @@
             <h1 class="modal-title">Registrar Cliente</h1>
         </div>
     </div>
-    
+    <div>
+   <!--  {{cliente |json }} -->
+    </div>
     <div class="row d-flex justify-content-center">
-        <div class="card step-progress mb-4 p-0" style="width: 95%;overflow-x: hidden;">
+        <div class="card step-progress mb-1 p-0" style="width: 95%;overflow-x: hidden;">
             <div class="step-slider w-100">
                 <div id="pestanaDatos" data-id="step1" class="step-slider-item active">
                     <h5 class="step-title">Datos Generales</h5>
@@ -29,10 +31,6 @@
             <div class="step-content w-100">
                 <div class="container">
                     <div class="form-group col-11 d-flex justify-content-end align-content-end">
-                        <button (click)="listadoClientes()"  class=" btn btn-bluegray hide-mobile  mb-2" data-toggle="dropdown" *ngIf="pestana==1"
-                            aria-haspopup="true" aria-expanded="false">
-                            <ico-documento class="ico-white pr-2"></ico-documento>Ver Listado de Clientes
-                        </button>
                         <button (click)="listadoProductosYsectores()"  class=" btn btn-bluegray hide-mobile  mb-2" data-toggle="dropdown" *ngIf="pestana==2"
                             aria-haspopup="true" aria-expanded="false">
                             <ico-documento class="ico-white pr-2"></ico-documento>Ver Listado de Productos y Sectores

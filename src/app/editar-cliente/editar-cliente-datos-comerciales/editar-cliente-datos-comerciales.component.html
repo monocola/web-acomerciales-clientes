@@ -1,54 +1,38 @@
 <div class="container" style="margin-top: -12px;">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="form-group row mb-1">
             <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
             <div class="row form-group position-relative mb-1 w-10">
                 <div class="d-flex justify-content-between ">
-                    <label  class="w-100 col-form-label text-left">Buscar Producto: </label>
+                    <label class="w-100 col-form-label text-left">Buscar Producto: </label>
                 </div>
                 <div class="col-sm-12 text-left">
-                <p-autoComplete  [inputId]="'productoid'"
-                    field="nombreproducto"
-                    [minLength]="3"
-                    [suggestions]="listaProductos"
-                    (completeMethod)="search($event)"
-                    [style]="{'width':'100%'}"
-                    [inputStyle]="{'width':'100%'}"
-                    class="p-autocomplete"
-                    (onSelect)="onSelect($event)"
-                    >
-                    </p-autoComplete>
+                    <input id="producto" placeholder="Ingrese nombre producto..." class="form-control input-tpp"
+                        style="width: 100%;" list="brow" (blur)="buscar($event)">
+                    <datalist id="brow">
+                        <option *ngFor="let list of listaProductos" value="{{list.nombreproducto }}" >
+                    </datalist>
                 </div>
-                
                 <div class="col-sm-6 text-left">
                     <label for="dni" class="w-100 col-form-label text-left">Sector:</label>
                     <div class="w-100  position-relative ">
-                        <p-autoComplete  [inputId]="'sectorid'"
-                        field="sectorname"
-                        [minLength]="3"
-                        [suggestions]="listaSectoresProd"
-                        (completeMethod)="searchSector($event)"
-                        [style]="{'width':'100%'}"
-                        [inputStyle]="{'width':'100%'}"
-                        class="p-autocomplete"
-                        (onSelect)="onSelectSector($event)"
-                        >
-                    </p-autoComplete>
+                        <input id="sector" class="form-control input-tpp" type="text">
+                        <input id="sector1" class="form-control input-tpp" type="text">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <label for="dni" class="w-100 col-form-label text-left">Ejecutivo:</label>
                     <div class="w-100  position-relative ">
-                        <input id="ejecutivo" class="form-control input-tpp" type="text" (blur)="enviarEjecutivo($event)">
+                        <input id="ejecutivo" class="form-control input-tpp" type="text">
                     </div>
                 </div>
             </div>
         </div>
-        <label  class="w-100 col-form-label text-left">Elija Categoría: </label>
+        <label class="w-100 col-form-label text-left">Elija Categoría: </label>
         <div class="col-sm-12">
             <div class="form-group row mb-3">
                 <div class="row form-group position-relative mb-1 w-100">
-                    
+
                     <div class="form-group row mb-2 check-group">
                         <div class="d-flex pb-3 flex-wrap">
                             <div class="col-sm-2 col-form-label">
@@ -56,15 +40,27 @@
                             </div>
                             <div class="col-sm-10">
                                 <div class="row position-relative justify-content-end">
-                                    <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap" *ngFor="let cate of listadoCategorias">
+                                    <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap">
                                         <div class="form-check  flex-wrap w-cnt2 my-2">
                                             <div class="d-flex container-check">
-                                                <input class="form-check-input" (click)="enviarProveedor(cate.id)" type="checkbox" name="categorias" id="tipocategoria{{ cate.id}}"  [checked]="cate.id == 1" [disabled]="cate.id == 1" >
-                                                <label class="form-check-label font-normal ml-2" for="">{{ cate.categoryname}} </label>
+                                                <input class="form-check-input" type="checkbox" name="categorias"
+                                                    id="tipocategoria1" checked disabled>
+                                                <label class="form-check-label font-normal ml-2" for="">Cliente</label>
                                             </div>
                                         </div>
                                     </div>
-                                  
+                                    <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap">
+                                        <div class="form-check  flex-wrap w-cnt2 my-2">
+                                            <div class="d-flex container-check">
+                                                <input class="form-check-input" (click)="enviarProveedor()"
+                                                    type="checkbox" name="categorias" id="tipocategoria2"
+                                                    [checked]="esproveedor == 1">
+                                                <label class="form-check-label font-normal ml-2"
+                                                    for="">Proveedor</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -73,45 +69,35 @@
             </div>
         </div>
 
-        <div style="margin-top: -4px;" class="row form-group position-relative mb-1 w-100">
-            <div class="col-sm-12">
-                <label for="nombre" class="w-100  col-form-label text-left">Seleccione Tipo de Operador(es):</label>
-                <div class="w-100  text-left">
-                    <p-multiSelect
-                            [inputId]= "'valores'"
-                            [style]="{'width':'100%'}"  
-                            [options]="listarTipoOperadores" 
-                            [(ngModel)]="selectedTipos" 
-                            defaultLabel="" 
-                            optionLabel="tipooperador" 
-                            display="chip"
-                            [filter]=true
-                            [maxSelectedLabels]="10"
-                            optionValue="id"
-                            (onChange)="onSelectOperadores()"
-                            > 
-                    </p-multiSelect>
-                </div>
+        <div class="pater col-12">
+            <label for="nombre" class="w-100  col-form-label text-left">Seleccione Tipo de Operador(es):</label>
+            <div style="text-align: left;" class="form-check form-check-inline" *ngFor="let tipo of listarTipoOperadores">
+                <input class="form-check-input " type="checkbox" 
+                id="tipooperador{{ tipo.id }}" 
+                [checked]="tipo.id ==1 && esagenteaduana == 1 || 
+                tipo.id ==2 && esagentecarga == 1 || 
+                tipo.id ==3 && esoperadorlogistico == 1 || 
+                tipo.id ==4 && esdeposito == 1 || 
+                tipo.id ==5 && esdeposito == 1 || 
+                tipo.id ==6 && eslineanaviera == 1 || 
+                tipo.id ==7 && esagentemaritimo == 1"
+                (blur)="onSelectOperadores(tipo.id)">
+                <label class="form-check-label" for="inlineCheckbox1">{{ tipo.tipooperador }}</label>
             </div>
-        </div> 
-    </div>
-    
-</div>
-<div class="row form-group position-relative mb-1 w-100">
-    <div class="col-sm-2">
-        <label for="nombre" class="w-100  col-form-label text-left "></label>
-        <div class="w-100 ">
-            <input class="form-check-input " type="checkbox" name="rdo_contenedores" id="idOtroOperador" (click)="mostrarOtroOperador()"> Otro Operador
         </div>
-     
-    </div>
-    <div class="col-sm-10" id="otroOperadorText">
-        <label for="dni" class="w-100 col-form-label text-left"></label>
-        <div class="w-100  position-relative ">
-            <input id="otrooperador" class="form-control input-tpp" type="text" placeholder="Espedificar Operador" (blur)="enviarOtroOperador($event)"  >
-        </div>
-        <br/>
-    </div> 
-    <app-contactos-cliente></app-contactos-cliente>
-</div> 
 
+        <div class="row form-group position-relative mb-1 w-100">
+            <div class="col-sm-12" id="otroOperadorText">
+                <label for="nombre" class="w-100  col-form-label text-left">Digite otro operador de ser necesario:</label>
+                <div class="w-100  position-relative ">
+                    <input id="otrooperador" class="form-control input-tpp" type="text" (blur)="enviarOtroOperador($event)">
+                </div>
+                <hr />
+            </div>
+        </div>
+        <app-contactos-cliente></app-contactos-cliente>
+
+
+    </div>
+
+</div>

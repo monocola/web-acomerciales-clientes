@@ -38,6 +38,9 @@ import { VerlistadoProductosClienteComponent } from './clientes/verlistado-produ
 import { NuevoProductoClienteComponent } from './clientes/nuevo-producto-cliente/nuevo-producto-cliente.component';
 import { NuevoSectorClienteComponent } from './clientes/nuevo-sector-cliente/nuevo-sector-cliente.component';
 import { FiltrarClienteComponent } from './filtrar-cliente/filtrar-cliente.component';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+
+
 registerLocaleData(localeEs, 'es');
 
 
@@ -84,6 +87,8 @@ registerLocaleData(localeEs, 'es');
     AutoCompleteModule,
     MultiSelectModule,
     RadioButtonModule,
+    DropDownsModule,
+  
     
 
     

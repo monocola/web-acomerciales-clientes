@@ -8,7 +8,9 @@ import { TipoOperador } from '../model/tipooperador';
 import { CategoriaService } from '../services/categoria.service';
 import { ProductoService } from '../services/producto.service';
 import { SectorService } from '../services/sector.service';
+import { StoreService } from '../services/store.service';
 import { TipoOperadorService } from '../services/tipooperador.service';
+import { Comerciales } from './comerciales';
 
 
 interface City {
@@ -31,20 +33,34 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
   listadoCategorias: any;
   listarTipoOperadores: any;
   notificacionGlobal: {};
+  producto:Producto;
+  productoResp:any;
+  listaProductos: any;
+
+
+  /* */
+  countries: any[];
+
+  /* */
 
   constructor(private productoService: ProductoService,
     private sectorService: SectorService,
     private config: GlobalClient,
     private categoriaService: CategoriaService,
-    private tipoOpService: TipoOperadorService) {
+    private tipoOpService: TipoOperadorService,
+    public store: StoreService) {
 
   }
 
   ngOnInit(): void {
     $("#otroOperadorText").hide();
-    this.config.setGlobalCategoriaClienteProveedor(false);
-    this.config.setGlobalOtroTipoOperador(0);
-
+    var nombreUsuario = localStorage.getItem("cpcPersonaEmpresa")
+    $("#ejecutivo").val(nombreUsuario).prop("disabled", true);
+    $("#sector").prop("disabled", true);
+    this.store.cliente.setGlobalEjecutivo(nombreUsuario);
+    this.store.cliente.setGlobalCategoriaClienteProveedor(0);
+    this.store.cliente.setGlobalOtroTipoOperador(0);
+    //this.store.setCliente(this.c);
     var objCategoria = new Categoria();
     this.categoriaService.obtenerCategorias(objCategoria).subscribe(
       (dataCategorias) => {
@@ -52,19 +68,26 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
 
       })
 
+      
     var objTipoOperador = new TipoOperador();
     this.tipoOpService.obtenerTipoOperadores(objTipoOperador).subscribe(
       (dataOperadores) => {
         this.listarTipoOperadores = dataOperadores;
       })
 
+      /* ****Inicio de pruebas **** */
+     
+
+
+       /* ****Fin de pruebas **** */
+
 
   }
-  listaProductos: any;
+  
   search(event) {
     var objProd = new Producto();
     objProd.nombreproducto = event.query;
-    this.productoService.obtenerProductos(objProd).subscribe(
+    this.productoService.obtenerProductosOnpremise(objProd).subscribe(
       (dataProducto) => {
         this.listaProductos = new Array();
         this.listaProductos = dataProducto;
@@ -77,69 +100,78 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
 
   listaSectores: any;
   onSelect(event) {
+    
     if(event == null){
-      alert("vacio");
+      this.store.cliente.setGlobalProductoId(null);
     }else {
     this.idproducto = event.id;
     this.config.setGlobalProductoId(event.id);
-    }
-    
-  }
-  onSelectSector(evt) {
-    this.config.setGlobalSectorId(evt.id);
-  }
+    var objProd = new Producto();
+    objProd.nombreproducto = event.nombreproducto;
 
-  otrometodo(event){
-    alert(event.target.value);
-  }
-  listaSectoresProd: any;
-  searchSector(event1) {
-    var objSector = new Sector();
-    objSector.productid = this.idproducto;
-    objSector.sectorname = event1.query;
-    this.sectorService.obtenerSectoresPorProductos(objSector).subscribe(
-      (dataSectores) => {
-        this.listaSectoresProd = new Array();
-        this.listaSectoresProd = dataSectores;
+    this.productoService.obtenerProductosOnpremise(objProd).subscribe(
+      (dataProducto) => {
+        var prodid;
+        this.listaProductos = new Array();
+        this.listaProductos = dataProducto;
+        this.producto = dataProducto;
+        $.each(this.producto, function (i, item) {
+        $("#sector").val(item.nombresector).prop("disabled", true);
+         prodid = item.id
+        });
+        this.store.cliente.setGlobalProductoId(prodid);
+        //this.store.setCliente(this.c);
       })
+      
+    }
   }
-
   
-
-  enviarEjecutivo(evt) {
-    this.config.setGlobalEjecutivo(evt.target.value);
-  }
-
-
-
   enviarProveedor(prov) {
     if ($('#tipocategoria' + prov).prop('checked')) {
-      this.config.setGlobalCategoriaClienteProveedor(true);
+
+      this.store.cliente.setGlobalCategoriaClienteProveedor(1);
+      
     } else {
-      this.config.setGlobalCategoriaClienteProveedor(false);
+      this.store.cliente.setGlobalCategoriaClienteProveedor(0);
+   
     }
   }
+
   onSelectOperadores() {
     var listadoTiposCadena = [];
     this.selectedTipos.forEach(element => {
       listadoTiposCadena.push(element.id);
-      this.config.setGlobalListadoTipoOperadores(listadoTiposCadena.toString());
     });
 
-  }
+    if(this.selectedTipos.length == 0){
+      this.store.cliente.setGlobalListadoTipoOperadores(null);
+    }else{
+      this.store.cliente.setGlobalListadoTipoOperadores(listadoTiposCadena.toString());
+    
+    }
+
+    }
 
   mostrarOtroOperador() {
+   
     if ($('#idOtroOperador').is(":checked")) {
       $("#otroOperadorText").show();
-      this.config.setGlobalOtroTipoOperador(1);
+      this.store.cliente.setGlobalOtroTipoOperador(1);
     } else {
       $("#otroOperadorText").hide();
-      this.config.setGlobalOtroTipoOperador(0);
+      this.store.cliente.setGlobalOtroTipoOperador(0);
+     
     }
+
   }
 
   enviarOtroOperador(evt) {
-    this.config.setGlobalOtroTipoOperadorEspecificar(evt.target.value);
+    if (evt.target.value == "") {
+      this.store.cliente.setGlobalOtroTipoOperadorEspecificar(null);
+    } else {
+      this.store.cliente.setGlobalOtroTipoOperadorEspecificar(evt.target.value);
+    }
+
   }
 
 }

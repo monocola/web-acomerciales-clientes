@@ -1,19 +1,27 @@
+
 <div class="container">
+    <div class="form-group col-11 d-flex justify-content-end align-content-end">
+        <button   class=" btn btn-bluegray hide-mobile  mb-2" data-toggle="dropdown" 
+            aria-haspopup="true" aria-expanded="false">
+            <ico-documento class="ico-white pr-2"></ico-documento>Actualizar información desde sunat
+        </button>
+    </div>
     <div class="row justify-content-center">
        <div class="col-sm-11">
             <div class="form-group row mb-3">
                 <div class="row form-group position-relative mb-1 w-100">
-                   
                     <div class="col-sm-6">
                         <label for="nombre" class="w-100  col-form-label text-left ">Tipo de Documento:</label>
                         <div class="w-100 ">
-                            <input id="tipodocumento" name="tipodocumento" class="form-control input-tpp" type="text"  (blur)="enviarTipodocumento($event)">
+                            <select class="form-control input-tpp"  id="tipodocumento" (change)="enviarTipoDocumento()">
+                                <option  *ngFor="let tipo of listadoTipoDocumentos"  [selected]="tipo.id == tipoDocumentoID" value="{{tipo.id }}" >{{ tipo.tipodocumento }}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label for="dni" class="w-100 col-form-label text-left">Numero de Documento:</label>
                         <div class="w-100  position-relative ">
-                            <input id="numerodocumento" class="form-control input-tpp" type="text"  (blur)="enviarNumeroDocumento($event)">
+                            <input id="numerodocumento" class="form-control input-tpp" type="text">
                         </div>
                     </div>
                 </div>
@@ -38,34 +46,34 @@
                 <div class="col-sm-4">
                     <label for="nombre" class="w-100  col-form-label text-left ">Fecha Inscripción:</label>
                     <div class="w-100 ">
-                        <input id="fechainscripcion" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarFechaInscripcion($event)">
+                        <input id="fechainscripcion" autocomplete="off" class="form-control input-tpp" type="text">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <label for="dni" class="w-100 col-form-label text-left">Condición:</label>
                     <div class="w-100  position-relative ">
-                        <input id="condicion" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarCondicion($event)">
+                        <input id="condicion" autocomplete="off" class="form-control input-tpp" type="text">
                     </div>
                 </div> 
                 <div class="col-sm-4">
                     <label for="dni" class="w-100 col-form-label text-left">Estado:</label>
                     <div class="w-100  position-relative ">
-                        <input id="estado" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarEstado($event)" >
+                        <input id="estado" autocomplete="off" class="form-control input-tpp" type="text" >
                     </div>
                 </div> 
             </div> 
 
             <div class="row form-group position-relative mb-1 w-100">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <label for="nombre" class="w-100  col-form-label text-left ">Dirección Fiscal:</label>
                     <div class="w-100 ">
                         <input id="direccionfiscal" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarDireccionFiscal($event)">
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <label for="dni" class="w-100 col-form-label text-left">Actividad Económica:</label>
                     <div class="w-100  position-relative ">
-                        <input id="actividadeconomica" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarActividadEconomica($event)">
+                        <input id="actividadeconomica" autocomplete="off" class="form-control input-tpp" type="text" >
                     </div>
                 </div> 
             </div> 
@@ -78,7 +86,7 @@
                 <div class="col-sm-6">
                     <label for="nombre" class="w-100  col-form-label text-left ">Código SAP:</label>
                     <div class="w-100 ">
-                        <input id="codigosap" class="form-control input-tpp" type="text" (blur)="enviarcodigoSap($event)">
+                        <input id="codigosap" class="form-control input-tpp" type="text">
                     </div>
                 </div>
                 <div class="col-sm-6">

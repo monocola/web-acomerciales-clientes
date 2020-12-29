@@ -30,36 +30,25 @@
                 </div>
             </div>
         </div>
-
-        <div class="row form-group position-relative mb-1 w-100">
-            <div class="col-sm-12">
-                <label for="nombre" class="w-100  col-form-label text-left">Suspendido con (Empresa):</label>
-                <div class="w-100  text-left">
-                    <p-multiSelect
-                            [style]="{'width':'100%'}"  
-                            [options]="listaEmpSusp" 
-                            defaultLabel="" 
-                            optionLabel="personaname" display="chip"
-                            [filter]=true
-                            [maxSelectedLabels]="10"
-                            [(ngModel)]="selectedTipos" 
-                            optionValue="id"
-                            (click)="seleccionarListadoEmp()"> 
-                    </p-multiSelect>
-
-                   
-                </div>
+        <div class="pater col-12">
+            <label for="nombre" class="w-100  col-form-label text-left">Suspendido para:</label>
+            <div style="text-align: left;" class="form-check form-check-inline" *ngFor="let listaEmp of listaEmpSusp">
+                <input class="form-check-input "
+                type="checkbox"
+                >
+                <label class="form-check-label" for="inlineCheckbox1">{{ listaEmp.personaname }}</label>
             </div>
-        </div> 
+        </div>
+       
         <div class="form-group row mb-3">
             <div class="row form-group position-relative mb-1 w-100">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <label for="nombre" class="w-100  col-form-label text-left ">Motivo Suspensión:</label>
                     <div class="w-100 ">
                         <input id="motivosuspension" class="form-control input-tpp" type="text" (blur)="enviarMotivoSuspension($event)">
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <label for="dni" class="w-100 col-form-label text-left">Instrucción recibida de:</label>
                     <div class="w-100  position-relative ">
                         <input id="instruccionrecibida" class="form-control input-tpp" type="text" (blur)="enviarInstruccionRecibida($event)">
@@ -69,19 +58,13 @@
         </div>
    
         <div class="form-group row mb-3">
-            <div class="row form-group position-relative mb-1 w-100">
-                <div class="col-sm-3">
+            <div class="row form-group position-relative mb-1 w-100" >
+                <div class="col-sm-3" >
                     <label for="nombre" class="w-100  col-form-label text-left ">Plazo de Crédito( Dias ):</label>
-                    <div class="w-100 ">
-                        <p-dropdown 
-                        [options]="listaPlazocredito" 
-                        name="plazodecredito"  
-                        [style]="{'width':'100%', 'text-align': 'left'}"   
-                        [(ngModel)]="selectedValuePlazo"
-                        optionLabel="plazodecredito"
-                        placeholder="Seleccione..."
-                        (onChange)="onSelectPlazoCredito(selectedValuePlazo)"
-                        ></p-dropdown>
+                    <div  class="w-100 ">
+                        <select class="form-control input-tpp" name="plazodecredito">
+                            <option *ngFor="let plazo of listaPlazocredito" value="{{ plazo.id }}" [selected]="plazo.id == plazocredito" >{{ plazo.plazodecredito }}</option>
+                        </select>
                     </div>
                     
                 </div>
@@ -89,37 +72,23 @@
                     <label for="dni" class="w-100 col-form-label text-left">Tasa Interés Libro( % ):</label>
                     <div class="w-100  position-relative ">
                         <div class="w-100 ">
-                            <p-dropdown 
-                            [options]="tasaInteresListado" 
-                            name="tazainteres"  
-                            [style]="{'width':'100%', 'text-align': 'left'}"   
-                            [(ngModel)]="tasaSeleccion"
-                            optionLabel="tazainteres"
-                            placeholder="Seleccione..."
-                            (onChange)="onSelectTasaInteresL(tasaSeleccion)"
-                            ></p-dropdown>
+                            <input style="text-align: left;"  id="tasaintereslibro" class="form-control input-tpp" type="text" (blur)="enviarTasaInteresEspecial($event)">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <label for="nombre" class="w-100  col-form-label text-left ">Tasa Interés Especial:</label>
                     <div class="w-100 ">
-                        <input id="tasainteresespecial" class="form-control input-tpp" type="text" (blur)="enviarTasaInteresEspecial($event)">
+                        <input style="text-align: left;"  id="tasainteresespecial" class="form-control input-tpp" type="text" (blur)="enviarTasaInteresEspecial($event)">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <label for="dni" class="w-100 col-form-label text-left">Calificación del Riesgo:</label>
                     <div class="w-100  position-relative ">
                         <div class="w-100 ">
-                            <p-dropdown 
-                            [options]="listadoResigos" 
-                            name="tazainteres"  
-                            [style]="{'width':'100%', 'text-align': 'left'}"   
-                            [(ngModel)]="riesgoSeleccion"
-                            optionLabel="riesgo"
-                            placeholder="Seleccione..."
-                            (onChange)="onSelectRiesgo(riesgoSeleccion)"
-                            ></p-dropdown>
+                            <select class="form-control input-tpp" name="riesgo">
+                                <option *ngFor="let riesg of listadoResigos" value="{{ riesg.id }}" [selected]="riesg.id == riesgoID" >{{ riesg.riesgo }}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -129,13 +98,13 @@
                     <div class="col-sm-6">
                         <label for="nombre" class="w-100  col-form-label text-left ">Fecha de Registro:</label>
                         <div class="w-100 ">
-                            <input id="fecharegistro" class="form-control input-tpp" type="text" value="{{  fechaActual  | date: 'fullDate':	'EEEE, MMMM d, y'}}">
+                            <input style="text-align: center;" id="fecharegistro" class="form-control input-tpp" type="text" value="">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label for="dni" class="w-100 col-form-label text-left">Usuario de Registro:</label>
-                        <div class="w-100  position-relative text-right ">
-                            <input id="usuario" class="form-control input-tpp" type="text" value="{{ usuarioLogin }}">
+                        <div class="w-100 position-relative text-right ">
+                            <input style="text-align: center;" id="usuarioRegistro" class="form-control input-tpp" type="text">
                         </div>
                     </div>
                 </div>

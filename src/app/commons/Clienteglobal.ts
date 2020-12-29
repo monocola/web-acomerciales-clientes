@@ -6,37 +6,104 @@ import { Contacto } from '../model/contactos';
 })
 export class GlobalClient {
 
-    globalTipoDocumento: number; 
-    globalNumeroDocumento: string; 
-    globalNombreRazonSocial: string; 
-    globalNombreComercial: string; 
-    globalFechaDeInscripcion: Date; 
-    globalCondicion: string; 
-    globalEstado: string; 
-    globalDireccionFiscal: string; 
-    globalActividadEconomica: string; 
-    globalCodigoSap: string; 
+    globalEmpresaID:number;
+    globalTipoDocumento: number;
+    globalNumeroDocumento: string;
+    globalNombreRazonSocial: string;
+    globalNombreComercial: string;
+    globalFechaDeInscripcion: Date;
+    globalCondicion: string;
+    globalEstado: string;
+    globalDireccionFiscal: string;
+    globalActividadEconomica: number;
+    globalCodigoSap: string;
     globalDominio: string;
-    globalProductoId: number; 
-    globalSectorId: number; 
-    globalEjecutivo: string; 
-    globalCategoriaClienteProveedor: boolean;
-    globalListadoTipoOperadores:string;
-    globalListadoEmpSuspen:string;
-    globalOtroTipoOperador: number; 
-    globalOtroTipoOperadorEspecificar: string; 
+    globalProductoId: number;
+    globalSectorId: number;
+    globalEjecutivo: string;
+    globalCategoriaClienteProveedor: number;
+    globalListadoTipoOperadores: string;
+    globalListadoEmpSuspen: string;
+    globalOtroTipoOperador: number;
+    globalOtroTipoOperadorEspecificar: string;
     globalEstadoSuspension: boolean;
     globalMotivoSuspension: string;
     globalInstruccionRecibida: string;
     globalPlazoCreditoId: number;
-    globalTasaInteresLibroId: number;
+    globalTasaInteresLibroId: any;
     globalTasaInteresEspecial: any;
     globalCalificacionRiesgoId: number;
-    globalFecha:string;
+    globalFecha: string;
     globalContactos: Contacto;
+    globalTipo: number;
+    globalBusqueda: string;
+
+    globalEsTransportista?:number;				
+	globalEsOperadorLogistico?:number;			
+	globalEsAgenteCarga?:number;				
+	globalEsAgenteAduana?:number;			
+	globalEsDeposito?:number;				
+	globalEsAgenteMaritimo?:number;			
+    globalEsLineaNaviera?:number;	
     
+    globalSuspendidoPMA?:number;
+    globalSuspendidoTPP?:number;
+    globalSuspendidoTPPT?:number;
+    globalSuspendidoTPPAD?:number;
 
+    constructor() {
+        this.globalEmpresaID = 0;
+        this.globalTipoDocumento = 0;
+        this.globalNumeroDocumento = "";
+        this.globalNombreRazonSocial = "";
+        this.globalNombreComercial = "";
+        this.globalFechaDeInscripcion = null;
+        this.globalCondicion = "";
+        this.globalEstado = "";
+        this.globalDireccionFiscal = "";
+        this.globalActividadEconomica = 0;
+        this.globalCodigoSap = "";
+        this.globalDominio = "";
+        this.globalProductoId = 0;
+        this.globalSectorId = 0;
+        this.globalEjecutivo = "";
+        this.globalCategoriaClienteProveedor = 0;
+        this.globalListadoTipoOperadores = "";
+        this.globalListadoEmpSuspen = "";
+        this.globalOtroTipoOperador = 0;
+        this.globalOtroTipoOperadorEspecificar = "";
+        this.globalEstadoSuspension = false;
+        this.globalMotivoSuspension = "";
+        this.globalInstruccionRecibida = "";
+        this.globalPlazoCreditoId = 0;
+        this.globalTasaInteresLibroId = 0;
+        this.globalTasaInteresEspecial = 0;
+        this.globalCalificacionRiesgoId = 0;
+        this.globalFecha = "";
+        this.globalContactos = null;
+        this.globalTipo = 0;
+        this.globalBusqueda = "";
 
+        this.globalEsTransportista = 0;				
+        this.globalEsOperadorLogistico = 0;			
+        this.globalEsAgenteCarga = 0;				
+        this.globalEsAgenteAduana = 0;			
+        this.globalEsDeposito = 0;				
+        this.globalEsAgenteMaritimo = 0;			
+        this.globalEsLineaNaviera = 0;
+
+        this.globalSuspendidoPMA = 0;
+        this.globalSuspendidoTPP = 0;
+        this.globalSuspendidoTPPT = 0;
+        this.globalSuspendidoTPPAD = 0;
+    }
+
+    setGlobalEmpresaID(id: number) {
+        this.globalEmpresaID = id;
+    }
+    getGlobalEmpresaID(): number {
+        return this.globalEmpresaID;
+    }
     setGlobalTipoDocumento(tipodocumento: number) {
         this.globalTipoDocumento = tipodocumento;
     }
@@ -93,10 +160,10 @@ export class GlobalClient {
         return this.globalDireccionFiscal;
     }
 
-    setGlobalActividadEconomica(actividadeconomica: string) {
+    setGlobalActividadEconomica(actividadeconomica: number) {
         this.globalActividadEconomica = actividadeconomica;
     }
-    getGlobalActividadEconomica(): string {
+    getGlobalActividadEconomica(): number {
         return this.globalActividadEconomica;
     }
 
@@ -113,7 +180,7 @@ export class GlobalClient {
     getGlobalDominio(): string {
         return this.globalDominio;
     }
-    
+
     setGlobalProductoId(productoid: number) {
         this.globalProductoId = productoid;
     }
@@ -134,10 +201,10 @@ export class GlobalClient {
         return this.globalEjecutivo;
     }
 
-    setGlobalCategoriaClienteProveedor(categoria: boolean) {
+    setGlobalCategoriaClienteProveedor(categoria: number) {
         this.globalCategoriaClienteProveedor = categoria;
     }
-    getGlobalCategoriaClienteProveedor(): boolean {
+    getGlobalCategoriaClienteProveedor(): number {
         return this.globalCategoriaClienteProveedor;
     }
 
@@ -154,7 +221,7 @@ export class GlobalClient {
     getGlobalListadoEmpSuspen(): string {
         return this.globalListadoEmpSuspen;
     }
-    
+
     setGlobalOtroTipoOperador(otrotipo: number) {
         this.globalOtroTipoOperador = otrotipo;
     }
@@ -193,10 +260,10 @@ export class GlobalClient {
     getGlobalPlazoCreditoId(): number {
         return this.globalPlazoCreditoId;
     }
-    setGlobalTasaInteresLibroId(tasainteresid: number) {
+    setGlobalTasaInteresLibroId(tasainteresid: any) {
         this.globalTasaInteresLibroId = tasainteresid;
     }
-    getGlobalTasaInteresLibroId(): number {
+    getGlobalTasaInteresLibroId(): any {
         return this.globalTasaInteresLibroId;
     }
     setGlobalTasaInteresEspecial(tasainteresespecial: any) {
@@ -219,37 +286,141 @@ export class GlobalClient {
     getGlobalContactos(): Contacto {
         return this.globalContactos;
     }
+
+    setGlobalTipo(tipo: number) {
+        this.globalTipo = tipo;
+    }
+
+    getGlobalTipo(): number {
+        return this.globalTipo;
+    }
+
+    setGlobalBusqueda(busqueda: string) {
+        this.globalBusqueda = busqueda;
+    }
+
+    getGlobalBusqueda(): string {
+        return this.globalBusqueda;
+    }
+
+    setGlobalEsTransportista(esTransportista: number) {
+        this.globalEsTransportista = esTransportista;
+    }
+
+    getGlobalEsTransportista(): number {
+        return this.globalEsTransportista;
+    }
+
+    setGlobalEsOperadorLogistico(esOpLogistico: number) {
+        this.globalEsOperadorLogistico = esOpLogistico;
+    }
+
+    getGlobalEsOperadorLogistico(): number {
+        return this.globalEsOperadorLogistico;
+    }
+
+    setGlobalEsAgenteCarga(esOpCarga: number) {
+        this.globalEsAgenteCarga = esOpCarga;
+    }
+
+    getGlobalEsAgenteCarga(): number {
+        return this.globalEsAgenteCarga;
+    }
+
+    setGlobalEsAgenteAduana(esAgAduana: number) {
+        this.globalEsAgenteAduana = esAgAduana;
+    }
+
+    getGlobalEsAgenteAduana(): number {
+        return this.globalEsAgenteAduana;
+    }
+				
+	setGlobalEsDeposito(esDeposito: number) {
+        this.globalEsDeposito = esDeposito;
+    }
+
+    getGlobalEsDeposito(): number {
+        return this.globalEsDeposito;
+    }
+
+    setGlobalEsAgenteMaritimo(esAMaritimo: number) {
+        this.globalEsAgenteMaritimo = esAMaritimo;
+    }
+
+    getGlobalEsAgenteMaritimo(): number {
+        return this.globalEsAgenteMaritimo;
+    }
     
-    
-    limpiarGlobalCliente(){
-        this.setGlobalTipoDocumento(undefined);
-        this.setGlobalNumeroDocumento(undefined);
-        this.setGlobalNombreRazonSocial(undefined);
-        this.setGlobalNombreComercial(undefined);
-        this.setGlobalFechaDeInscripcion(undefined);
-        this.setGlobalCondicion(undefined);
-        this.setGlobalEstado(undefined);
-        this.setGlobalDireccionFiscal(undefined);
-        this.setGlobalActividadEconomica(undefined);
-        this.setGlobalCodigoSap(undefined)
-        this.setGlobalDominio(undefined);
-        this.setGlobalProductoId(undefined);
-        this.setGlobalSectorId(undefined);
-        this.setGlobalEjecutivo(undefined);
-        this.setGlobalCategoriaClienteProveedor(undefined);
-        this.setGlobalListadoTipoOperadores(undefined);
-        this.setGlobalListadoEmpSuspen(undefined);
-        this.setGlobalOtroTipoOperador(undefined);
-        this.setGlobalOtroTipoOperadorEspecificar(undefined);
-        this.setGlobalEstadoSuspension(undefined);
-        this.setGlobalMotivoSuspension(undefined);
-        this.setGlobalInstruccionRecibida(undefined);
-        this.setGlobalPlazoCreditoId(undefined);
-        this.setGlobalTasaInteresLibroId(undefined);
-        this.setGlobalTasaInteresEspecial(undefined);
-        this.setGlobalCalificacionRiesgoId(undefined);
-        this.setGlobalContactos(undefined);
+    setGlobalEsLineaNaviera(esLineNaviera: number) {
+        this.globalEsLineaNaviera = esLineNaviera;
+    }
+
+    getGlobalEsLineaNaviera(): number {
+        return this.globalEsLineaNaviera;
+    }
+
+    setGlobalSuspendidoPMA(suspma: number) {
+        this.globalSuspendidoPMA = suspma;
+    }
+
+    getGlobalSuspendidoPMA(): number {
+        return this.globalSuspendidoPMA;
+    }
+
+    setGlobalSuspendidoTPP(sustpp: number) {
+        this.globalSuspendidoTPP = sustpp;
+    }
+
+    getGlobalSuspendidoTPP(): number {
+        return this.globalSuspendidoTPP;
+    }
+
+    setGlobalSuspendidoTPPT(sustppt: number) {
+        this.globalSuspendidoTPPT = sustppt;
+    }
+
+    getGlobalSuspendidoTPPT(): number {
+        return this.globalSuspendidoTPPT;
+    }
+
+    setGlobalSuspendidoTPPAD(sustppad: number) {
+        this.globalSuspendidoTPPAD = sustppad;
+    }
+
+    getGlobalSuspendidoTPPAD(): number {
+        return this.globalSuspendidoTPPAD;
     }
 
     
+    limpiarGlobalCliente() {
+        this.setGlobalTipoDocumento(null);
+        this.setGlobalNumeroDocumento(null);
+        this.setGlobalNombreRazonSocial(null);
+        this.setGlobalNombreComercial(null);
+        this.setGlobalFechaDeInscripcion(null);
+        this.setGlobalCondicion(null);
+        this.setGlobalEstado(null);
+        this.setGlobalDireccionFiscal(null);
+        this.setGlobalActividadEconomica(null);
+        this.setGlobalCodigoSap(null)
+        this.setGlobalDominio(null);
+        this.setGlobalProductoId(null);
+        this.setGlobalSectorId(null);
+        this.setGlobalEjecutivo(null);
+        this.setGlobalCategoriaClienteProveedor(null);
+        this.setGlobalListadoTipoOperadores(null);
+        this.setGlobalListadoEmpSuspen(null);
+        this.setGlobalOtroTipoOperador(null);
+        this.setGlobalOtroTipoOperadorEspecificar(null);
+        this.setGlobalEstadoSuspension(null);
+        this.setGlobalMotivoSuspension(null);
+        this.setGlobalInstruccionRecibida(null);
+        this.setGlobalPlazoCreditoId(null);
+        this.setGlobalTasaInteresLibroId(null);
+        this.setGlobalTasaInteresEspecial(null);
+        this.setGlobalCalificacionRiesgoId(null);
+        this.setGlobalContactos(null);
+    }
+
+
 }

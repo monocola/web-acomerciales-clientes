@@ -8,7 +8,7 @@
                         <label  class="w-100 col-form-label text-left">Buscar por Ruc en Sunat: {{ ruc }} </label>
                     </div>
                     <div class="col-sm-3 text-left">
-                        <input id="busqueda" class="form-control input-tpp" autocomplete="off" type="text" (keypress)="soloNumeros($event)"  (keyup)="buscarRucSunat()">
+                        <input id="busquedaruc" class="form-control input-tpp" autocomplete="off" type="text" (keypress)="soloNumeros($event)"  (keyup)="buscarRucSunat()">
                     </div>
                     <div>
                         <hr/>
@@ -84,8 +84,23 @@
                 </div>
                 <div class="col-sm-12">
                     <label for="dni" class="w-100 col-form-label text-left">Actividad Económica:</label>
-                    <div class="w-100  position-relative ">
-                        <input id="actividadeconomica" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarActividadEconomica($event)">
+                    <div class="w-100  position-relative text-left">
+                    <input id="actividadeconomica" autocomplete="off" class="form-control input-tpp" type="text" (blur)="enviarActividadEconomica($event)">
+                    <div id="actividadeseconomicasinput">
+                        <p-autoComplete  
+                        [inputId]="'productoid'"
+                        field="nombreactividad"
+                        [minLength]="3"
+                        [ngModel]="selectedActividades"
+                        [suggestions]="listaActividades"
+                        (completeMethod)="searchActivities($event)"
+                        [style]="{'width':'100%'}"
+                        [inputStyle]="{'width':'100%'}"
+                        class="p-autocomplete"
+                        (onSelect)="onSelect($event)">
+                    </p-autoComplete>
+                    </div>    
+                       
                     </div>
                 </div> 
             </div> 

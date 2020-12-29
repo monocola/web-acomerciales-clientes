@@ -1,8 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { GlobalClient } from './commons/Clienteglobal';
+import { CuerpoTablaClientesComponent } from './cuerpo-tabla-clientes/cuerpo-tabla-clientes.component';
+//import { ngOnInit } from './cuerpo-tabla-clientes/cuerpo-tabla-clientes.component';
 import { GenerarClienteComponent } from './generar-cliente/generar-cliente.component';
-//import { RegistrarClienteComponent } from './registrar-cliente/registrar-cliente.component';
+
 
 
 @Component({
@@ -12,15 +15,19 @@ import { GenerarClienteComponent } from './generar-cliente/generar-cliente.compo
   providers: [DialogService, MessageService],
 })
 export class EncabezadoClientesComponent implements OnInit {
+  busquedaQuery:any;
   @Input('header') lista = [];
   @Input('fact') fact: boolean;
   @Input('action') action: boolean = true;
-  busqueda:any;
+  @Output() busqueda = new EventEmitter();
+  @Output() tipobusqueda = new EventEmitter();
+  busqueda1:any;
   tipodebusqueda:any;
   selectedAll: string[] = [];
   ref: DynamicDialogRef;
 
-  constructor( public dialogService: DialogService) {}
+  constructor(public dialogService: DialogService, 
+              private config: GlobalClient) {}
 
   ngOnInit(): void {}
 
@@ -35,10 +42,4 @@ export class EncabezadoClientesComponent implements OnInit {
     });
   }
 
-  busquedaInput(evt){
-    this.busqueda = evt;
-  }
-  tipovariablebusqueda(evt){
-    this.tipodebusqueda = evt;
-   }
 }

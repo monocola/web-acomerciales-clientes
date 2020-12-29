@@ -7,6 +7,14 @@ import { TipoDocumento } from '../model/tipodocumento';
 import { EmpresaService } from '../services/empresa.service';
 import { TipoDocumentoService } from '../services/tipodocumento.service';
 import { DatePipe } from '@angular/common'
+import { IfStmt } from '@angular/compiler';
+import { StoreService } from '../services/store.service';
+import { Comerciales } from '../generar-cliente-datos-comerciales/comerciales';
+import { EconomicActivity } from '../model/economicactivity';
+import { EconomicActivityService } from '../services/aconomicactivity.service';
+import { Generales } from './generales';
+import { Persona } from '../model/persona';
+import { PersonaService } from '../services/persona.service';
 
 interface typeOfSelect {
   label: string;
@@ -16,30 +24,20 @@ declare var $: any;
   selector: 'app-generar-cliente-datos-generales',
   templateUrl: './generar-cliente-datos-generales.component.html',
   styleUrls: ['./generar-cliente-datos-generales.component.scss'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 
 })
 export class GenerarClienteDatosGeneralesComponent implements OnInit {
-
-  empresaSunat: EmpresaSunat;
-  ruc: number;
-  cantidad:number;
-  listadoTipoDocumentos:any;
-  idtipodocumento:number;
-  constructor(public dialogService: DialogService,
-    public config: GlobalClient,
-    private empresaSunatService: EmpresaService,
-    private tipodeDocumentoService: TipoDocumentoService,
-    public datepipe: DatePipe) { }
 
   @Output()
   enviar: EventEmitter<string> = new EventEmitter<string>();
   tipodocumento: string;
   notificacionGlobal: {};
-  
-  botonClick() {
-    this.enviar.emit(this.tipodocumento);
-  }
+  empresaSunat: EmpresaSunat;
+  ruc: number;
+  cantidad: number;
+  listadoTipoDocumentos: any;
+  idtipodocumento: number;
 
   @Input() title: string;
   typesOfShift: SelectItem[];
@@ -57,23 +55,52 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
   date2: Date;
   es: any;
   ref: DynamicDialogRef;
-  selectedtipoDoc:any;
+  selectedtipoDoc: any;
+  listaActividades: any;
+  selectedActividades: EconomicActivity
 
+  constructor(public dialogService: DialogService,
+    public config: GlobalClient,
+    private empresaSunatService: EmpresaService,
+    private tipodeDocumentoService: TipoDocumentoService,
+    public datepipe: DatePipe,
+    public store: StoreService,
+    private economicActivityService: EconomicActivityService,
+    private generales: Generales,
+    private personaService: PersonaService) {}
+
+  
+
+  botonClick() {
+    this.enviar.emit(this.tipodocumento);
+  }
+
+  
 
   ngOnInit(): void {
 
     $("#tipodocumento2").hide();
-    $("#busqueda").prop("maxlength",11);
-   
+    $("#busquedaruc").prop("maxlength", 11);
+    $("#actividadeconomica").hide();
+    this.store.cliente.setGlobalOtroTipoOperador(0);
     var objTipoDocumento = new TipoDocumento();
     this.tipodeDocumentoService.obtenerTipoDocumento(objTipoDocumento).subscribe(
       (dataTipoDocumentos) => {
         this.listadoTipoDocumentos = dataTipoDocumentos;
         //console.log("tipo de documentos: " + JSON.stringify(this.listadoTipoDocumentos));
-      }, (error) =>{
+      }, (error) => {
         console.log("tipo de documentos error: " + JSON.stringify(error));
       })
-     
+
+  }
+  searchActivities(event) {
+    var objActivity = new EconomicActivity();
+    objActivity.nombreactividad = "%" + event.query + "%";
+    this.economicActivityService.obtenerActvidadesEconomicasOnPremise(objActivity).subscribe(
+      (dataActivities) => {
+        this.listaActividades = new Array();
+        this.listaActividades = dataActivities;
+      })
   }
 
   mensajeGlobalNotificacion(tipo, mensaje, view) {
@@ -121,49 +148,75 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
     this.calendar = menu.toLowerCase() === 'fecha';
   }
 
-  
+
   buscarRucSunat() {
     this.mensajeGlobalNotificacion("", "", false);
-    var inputBusqueda = ((document.getElementById("busqueda") as HTMLInputElement).value);
-    var nombreComercial = ((document.getElementById("nombrecomercial") as HTMLInputElement).value);
-
-    if(inputBusqueda.length > 10){
-      this.cantidad = inputBusqueda.length;
-      this.ruc = Number(inputBusqueda);
-      this.empresaSunatService.obtenerEmpresaSunat(this.ruc)
-        .subscribe(data => {
-          console.log(data)
-          this.empresaSunat = data;
-          //let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
-          const fechaInscripcion = this.datepipe.transform(this.empresaSunat.fechaInscripcion, 'dd-MM-yyyy');
-          $("#numerodocumento").val(this.empresaSunat.ruc).prop("disabled", true);
-          $("#razonsocial").val(this.empresaSunat.razonSocial).prop("disabled", true);
-          $("#condicion").val(this.empresaSunat.condicion).prop("disabled", true);
-          $("#fechainscripcion").val(fechaInscripcion).prop("disabled", true);
-          $("#estado").val(this.empresaSunat.estado).prop("disabled", true);
-          $("#actividadeconomica").val(this.empresaSunat.actEconomicas).prop("disabled", true);
-
-          var direccionFiscal = this.empresaSunat.direccion + ", " + this.empresaSunat.distrito +  ", " + this.empresaSunat.departamento;
-          $("#direccionfiscal").val(direccionFiscal).prop("disabled", true);
-
-          /* guardando campos en variable global cliente  */
-          this.config.setGlobalTipoDocumento(3);
-          this.config.setGlobalNumeroDocumento(this.empresaSunat.ruc.toString());
-          this.config.setGlobalNombreRazonSocial(this.empresaSunat.razonSocial)
-          this.config.setGlobalFechaDeInscripcion(this.empresaSunat.fechaInscripcion);
-          this.config.setGlobalCondicion(this.empresaSunat.condicion);
-          this.config.setGlobalEstado(this.empresaSunat.estado);
-          this.config.setGlobalDireccionFiscal(direccionFiscal);
-          this.config.setGlobalActividadEconomica(this.empresaSunat.actEconomicas);
+    var inputBusqueda = ((document.getElementById("busquedaruc") as HTMLInputElement).value);
+    //var nombreComercial = ((document.getElementById("nombrecomercial") as HTMLInputElement).value);
+      
+    if (inputBusqueda.length > 10) {
+      var objPersona = new Persona();
+      objPersona.numerodocumento = inputBusqueda;
+      this.personaService.obtenerClientePorNumeroDocumento(objPersona).subscribe(
+          (dataListadoClientes) => {
+              if (Object.keys(dataListadoClientes).length === 0) {
+                this.cantidad = inputBusqueda.length;
+                this.ruc = Number(inputBusqueda);
+                this.empresaSunatService.obtenerEmpresaSunat(this.ruc)
+                  .subscribe(data => {
+                    console.log(data)
+                    this.empresaSunat = data;
           
-          $("#tipodocumento2").show().prop("disabled", true);
-          $("#tipodocumento1").hide();
-        }, error => {
-          this.mensajeGlobalNotificacion("warning", "Lo sentimos, El numero de ruc ingresado no Existe.", true);
-          console.log("console error: " + error)
-        });
+          
+                    //let latest_date =this.datepipe.transform(this.date, 'yyyy-MM-dd');
+                    $("#actividadeconomica").show();
+                    $("#actividadeseconomicasinput").hide();
+                    const fechaInscripcion = this.datepipe.transform(this.empresaSunat.fechaInscripcion, 'dd-MM-yyyy');
+                    $("#numerodocumento").val(this.empresaSunat.ruc).prop("disabled", true);
+                    $("#razonsocial").val(this.empresaSunat.razonSocial).prop("disabled", true);
+                    $("#condicion").val(this.empresaSunat.condicion).prop("disabled", true);
+                    $("#fechainscripcion").val(fechaInscripcion).prop("disabled", true);
+                    $("#estado").val(this.empresaSunat.estado).prop("disabled", true);
+                    var actividadesSunatNombre = this.generales.obtenerNombreActividadEconomica(this.empresaSunat.actEconomicas.toString());
+                    $("#actividadeconomica").val(actividadesSunatNombre).prop("disabled", true);
+          
+                    var direccionFiscal = this.empresaSunat.direccion + ", " + this.empresaSunat.distrito + ", " + this.empresaSunat.departamento;
+                    $("#direccionfiscal").val(direccionFiscal).prop("disabled", true);
+          
+                    /* guardando campos en variable global cliente  */
+                    this.store.cliente.setGlobalTipoDocumento(3);
+                    this.store.cliente.setGlobalNumeroDocumento(this.empresaSunat.ruc.toString());
+                    this.store.cliente.setGlobalNombreRazonSocial(this.empresaSunat.razonSocial)
+                    this.store.cliente.setGlobalFechaDeInscripcion(this.empresaSunat.fechaInscripcion);
+                    this.store.cliente.setGlobalCondicion(this.empresaSunat.condicion);
+                    this.store.cliente.setGlobalEstado(this.empresaSunat.estado);
+                    this.store.cliente.setGlobalDireccionFiscal(direccionFiscal);
+                    this.store.cliente.setGlobalActividadEconomica(Number(this.generales.obtenerIdActividadEconomica(this.empresaSunat.actEconomicas.toString())));
+          
+                    $("#tipodocumento2").show().prop("disabled", true);
+                    $("#tipodocumento1").hide();
+          
+          
+          
+                    //alert(this.generales.obtenerNombreActividadEconomica(this.empresaSunat.actEconomicas.toString()));
+          
+                  }, error => {
+          
+                    if (error.status == 400) {
+                      this.mensajeGlobalNotificacion("warning", "Lo sentimos, El numero de ruc ingresado no se encuentra registrado en la Sunat.", true);
+                    } else {
+                      this.mensajeGlobalNotificacion("warning", "Lo sentimos, Ha Ocurrido un error interno.", true);
+                    }
+                    console.log("console error: " + JSON.stringify(error))
+                  });
+              } else {
+                this.mensajeGlobalNotificacion("warning", "Cliente ya se encuentra registrado.", true);
+              }
+      })
+
+     
     }
-   
+
   }
 
   soloNumeros(e) {
@@ -172,17 +225,18 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
       e.preventDefault();
     }
 
-  
+
   }
 
-  listaEmpresa: any;
-  onSelect(event) {
-    if(event == null){
-    }else {
-    this.idtipodocumento = event.id;
-    this.config.setGlobalTipoDocumento(event.id);
-    }
-    
+  
+ 
+  onSelect(evt) {
+   if(evt == undefined || evt == null){
+    this.store.cliente.setGlobalActividadEconomica(null);
+   }else{
+    this.store.cliente.setGlobalActividadEconomica(evt.id); 
+   }  
+  
   }
 
   clienteExistente() {
@@ -196,94 +250,97 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
 
   }
   /* data temporal de pestaña datos generales */
+ 
   enviarTipodocumento(tipodocumento) {
-   
-    if (tipodocumento == undefined) {
-      this.config.setGlobalTipoDocumento(undefined);
+
+    if (tipodocumento == null) {
+      this.store.cliente.setGlobalTipoDocumento(null);
     } else {
-      this.config.setGlobalTipoDocumento(tipodocumento.id);
+      this.store.cliente.setGlobalTipoDocumento(tipodocumento.id);
     }
 
   }
   enviarNumeroDocumento(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalNumeroDocumento(undefined);
+      this.store.cliente.setGlobalNumeroDocumento(null);
     } else {
-      this.config.setGlobalNumeroDocumento(evt.target.value);
+      this.store.cliente.setGlobalNumeroDocumento(evt.target.value);
     }
 
   }
   enviarRazonSocial(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalNombreRazonSocial(undefined);
+      this.store.cliente.setGlobalNombreRazonSocial(null);
     } else {
-      this.config.setGlobalNombreRazonSocial(evt.target.value);
+      this.store.cliente.setGlobalNombreRazonSocial(evt.target.value);
     }
 
   }
   enviarNombreComercial(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalNombreComercial(undefined);
+      this.store.cliente.setGlobalNombreComercial(null);
     } else {
-      this.config.setGlobalNombreComercial(evt.target.value);
+      this.store.cliente.setGlobalNombreComercial(evt.target.value);
     }
 
   }
   enviarFechaInscripcion(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalFechaDeInscripcion(undefined);
+      this.store.cliente.setGlobalFechaDeInscripcion(null);
     } else {
-      this.config.setGlobalFechaDeInscripcion(evt.target.value);
+      this.store.cliente.setGlobalFechaDeInscripcion(evt.target.value);
     }
 
   }
   enviarCondicion(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalCondicion(undefined);
+      this.store.cliente.setGlobalCondicion(null);
     } else {
-      this.config.setGlobalCondicion(evt.target.value);
+      this.store.cliente.setGlobalCondicion(evt.target.value);
     }
 
   }
   enviarEstado(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalEstado(undefined);
+      this.store.cliente.setGlobalEstado(null);
     } else {
-      this.config.setGlobalEstado(evt.target.value);
+      this.store.cliente.setGlobalEstado(evt.target.value);
     }
 
   }
   enviarDireccionFiscal(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalDireccionFiscal(undefined);
+      this.store.cliente.setGlobalDireccionFiscal(null);
     } else {
-      this.config.setGlobalDireccionFiscal(evt.target.value);
+      this.store.cliente.setGlobalDireccionFiscal(evt.target.value);
     }
 
   }
   enviarActividadEconomica(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalActividadEconomica(undefined);
+      this.store.cliente.setGlobalActividadEconomica(null);
     } else {
-      this.config.setGlobalActividadEconomica(evt.target.value);
+      this.store.cliente.setGlobalActividadEconomica(evt.target.value);
     }
 
   }
   /* data temporal de pestaña datos sap*/
   enviarcodigoSap(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalCodigoSap(undefined);
+      this.store.cliente.setGlobalCodigoSap(null);
     } else {
-      this.config.setGlobalCodigoSap(evt.target.value);
+      this.store.cliente.setGlobalCodigoSap(evt.target.value);
     }
 
   }
   enviarDominio(evt) {
     if (evt.target.value == "") {
-      this.config.setGlobalDominio(undefined);
+      this.store.cliente.setGlobalDominio(null);
     } else {
-      this.config.setGlobalDominio(evt.target.value);
+      this.store.cliente.setGlobalDominio(evt.target.value);
     }
 
   }
+
+  
 }

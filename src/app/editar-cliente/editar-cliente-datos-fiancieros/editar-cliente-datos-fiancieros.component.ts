@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GlobalClient } from 'src/app/commons/Clienteglobal';
 import { PlazoCredito } from 'src/app/model/plazocredito';
@@ -9,12 +10,14 @@ import { EmpSuspService } from 'src/app/services/empsuspenService.service';
 import { EstadoSuspensionService } from 'src/app/services/estadosuspension.service';
 import { PlazoCreditoService } from 'src/app/services/plazocredito.service';
 import { RiesgoService } from 'src/app/services/riesgo.service';
+import { StoreService } from 'src/app/services/store.service';
 import { TasaInteresLService } from 'src/app/services/tasainteresl.service';
 declare var $: any;
 @Component({
   selector: 'app-editar-cliente-datos-fiancieros',
   templateUrl: './editar-cliente-datos-fiancieros.component.html',
-  styleUrls: ['./editar-cliente-datos-fiancieros.component.scss']
+  styleUrls: ['./editar-cliente-datos-fiancieros.component.scss'],
+  providers: [DatePipe]
 })
 export class EditarClienteDatosFiancierosComponent implements OnInit {
 
@@ -31,6 +34,11 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
   selectedTipos: EmpresaSuspendedora[];
   fechaActual:Date;
   usuarioLogin:string;
+  riesgoID:number;
+  globalSuspendidoPMA?:number;
+  globalSuspendidoTPP?:number;
+  globalSuspendidoTPPT?:number;
+  globalSuspendidoTPPAD?:number;
 
 
   constructor(private suspensionService: EstadoSuspensionService,
@@ -38,7 +46,9 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
     private plazocredito: PlazoCreditoService,
     private tasaService: TasaInteresLService,
     private riesgoService: RiesgoService,
-    private config: GlobalClient) {
+    private config: GlobalClient,
+    public store: StoreService,
+    public datepipe: DatePipe) {
 
   }
 
@@ -47,6 +57,21 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
     $("#usuario").prop("disabled", true);
     this.fechaActual = new Date();
     this.usuarioLogin = localStorage.getItem("usurariologin");
+    const obj = JSON.parse(JSON.stringify(this.store.cliente));
+    var intereslibro = obj.tasaintereslibro.toFixed(2);
+    $("#tasaintereslibro").val(intereslibro); 
+    var tasainteresespecial = obj.tasainteresespecial.toFixed(2);
+    $("#tasainteresespecial").val(tasainteresespecial);
+    this.riesgoID = obj.calificacion;
+    const fecharegistro = this.datepipe.transform(obj.fechacreacion, 'dd/MM/yyyy');
+    $("#usuarioRegistro").val(obj.usuariocreadorid).prop("disabled", true);
+    $("#fecharegistro").val(fecharegistro).prop("disabled", true);
+    alert(obj.globalSuspendidoPMA);
+    this.globalSuspendidoPMA = obj.globalSuspendidoPMA; 
+    this.globalSuspendidoTPP = obj.globalSuspendidoTPP; 
+    this.globalSuspendidoTPPT = obj.globalSuspendidoTPPT; 
+    this.globalSuspendidoTPPAD = obj.globalSuspendidoTPPAD; 
+
 
     var objEstadoSuspension = new EstadoSuspension();
     this.suspensionService.obtenerEstadoSuspension(objEstadoSuspension).subscribe(
@@ -58,6 +83,7 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
     this.empSuspService.obtenerEmpresasSusp(objEmpSusp).subscribe(
       (dataEmpSusp) => {
         this.listaEmpSusp = dataEmpSusp;
+        console.log("empresas: ==>" + JSON.stringify(this.listaEmpSusp));
       })
 
     var objPlazoCredito = new PlazoCredito();
