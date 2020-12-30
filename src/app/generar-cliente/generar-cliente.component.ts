@@ -336,9 +336,9 @@ export class GenerarClienteComponent implements OnInit {
      
       this.personaService.registrarPersonasOnPremise(objPersona).subscribe(
         (empresaId) => {
-          console.log("1. respuesta registro persona: " + empresaId);
+          //console.log("1. respuesta registro persona: " + empresaId);
           if(empresaId == -1){
-            console.log("error de registro persona: " + empresaId);
+            //console.log("error de registro persona: " + empresaId);
           }else{
             /* Registro persona financiera */
             var objPersonaF = new PersonaFinanciera();
@@ -350,7 +350,7 @@ export class GenerarClienteComponent implements OnInit {
 
             this.personaService.registrarPersonasFinancieraOnPremise(objPersonaF).subscribe(
               (pfinanciera) => {
-                console.log("2. respuesta registro persona financiera: " + pfinanciera);
+                //console.log("2. respuesta registro persona financiera: " + pfinanciera);
                 if(pfinanciera == -1){
                   this.mensajeGlobalNotificacion("warning", "Ocurrió un problema, el registro no pudo ser guardado.", true);
                 }else{
@@ -361,7 +361,7 @@ export class GenerarClienteComponent implements OnInit {
           }
         },
         error =>{
-          console.log("Objeto error persona: " + JSON.stringify(error));
+          //console.log("Objeto error persona: " + JSON.stringify(error));
         })
 
 

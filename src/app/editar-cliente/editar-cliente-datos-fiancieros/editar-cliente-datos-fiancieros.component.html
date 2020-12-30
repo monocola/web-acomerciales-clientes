@@ -1,10 +1,10 @@
-
 <div class="container">
+    <app-notification *ngIf="notificacionGlobal" [notification]="notificacionGlobal"></app-notification>
     <div class="row justify-content-center">
         <div class="col-sm-11">
             <div class="form-group row mb-3">
                 <div class="row form-group position-relative mb-1 w-100">
-
+                    
                     <div class="form-group row mb-2 check-group">
                         <div class="d-flex pb-3 flex-wrap">
                             <div class="col-sm-2 col-form-label">
@@ -15,8 +15,11 @@
                                     <div class="col-sm-11  d-flex align-items-center justify-content-start flex-wrap" *ngFor="let sus of listaSuspensiones">
                                         <div class="form-check form-check-inline flex-wrap w-cnt2 my-2">
                                             <div >
-                                                <input id="tipo_retiro{{ sus.id }}" name="tipo" class="form-check-input mr-0 mr-lg-3" type="radio" (change)="cambiarTipoSuspension(sus.id)" value="t{{ sus.id }}"  >
-                                                <label class="form-check-label font-normal ml-2" for="">{{ sus.tipoestado}} </label>
+                                                <input id="tipo_retiro{{ sus.id }}" name="tipo" class="form-check-input mr-0 mr-lg-3" type="radio"
+                                                (change)="cambiarTipoSuspension(sus.id)"
+                                                value="t{{ sus.id }}" 
+                                                [checked]="(sus.id == 2 && estadoSuspendido == 1) || (sus.id == 1 && estadoSuspendido == 0)"   >
+                                                <label class="form-check-label font-normal ml-2" for="">{{ sus.tipoestado}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -33,9 +36,14 @@
         <div class="pater col-12">
             <label for="nombre" class="w-100  col-form-label text-left">Suspendido para:</label>
             <div style="text-align: left;" class="form-check form-check-inline" *ngFor="let listaEmp of listaEmpSusp">
-                <input class="form-check-input "
-                type="checkbox"
-                >
+                <input class="form-check-input"
+                id="tipoempresa{{ listaEmp.id }}"
+                [checked]="listaEmp.id == 1 && globalSuspendidoPMA == 1 || 
+                listaEmp.id == 2 && globalSuspendidoTPP == 1 || 
+                listaEmp.id == 3 && globalSuspendidoTPPT == 1 || 
+                listaEmp.id == 4 && globalSuspendidoTPPAD == 1"
+                (blur)="seleccionarListadoEmp(listaEmp.id)"
+                type="checkbox">
                 <label class="form-check-label" for="inlineCheckbox1">{{ listaEmp.personaname }}</label>
             </div>
         </div>
@@ -60,19 +68,18 @@
         <div class="form-group row mb-3">
             <div class="row form-group position-relative mb-1 w-100" >
                 <div class="col-sm-3" >
-                    <label for="nombre" class="w-100  col-form-label text-left ">Plazo de Crédito( Dias ):</label>
+                    <label for="nombre" class="w-100  col-form-label text-left ">Plazo de Crédito(Dias):</label>
                     <div  class="w-100 ">
-                        <select class="form-control input-tpp" name="plazodecredito">
-                            <option *ngFor="let plazo of listaPlazocredito" value="{{ plazo.id }}" [selected]="plazo.id == plazocredito" >{{ plazo.plazodecredito }}</option>
+                        <select class="form-control input-tpp" id="plazodecredito" (change)="onSelectPlazoCredito($event)">
+                            <option *ngFor="let plazo of listaPlazocredito" value="{{ plazo.id }}" [selected]="plazo.id == plazocreditoid"  >{{ plazo.plazodecredito }}</option>
                         </select>
                     </div>
-                    
                 </div>
                 <div class="col-sm-3">
                     <label for="dni" class="w-100 col-form-label text-left">Tasa Interés Libro( % ):</label>
                     <div class="w-100  position-relative ">
                         <div class="w-100 ">
-                            <input style="text-align: left;"  id="tasaintereslibro" class="form-control input-tpp" type="text" (blur)="enviarTasaInteresEspecial($event)">
+                            <input style="text-align: left;"  id="tasaintereslibro" class="form-control input-tpp" type="text" (blur)="enviarTasaInteresLibro($event)">
                         </div>
                     </div>
                 </div>
@@ -86,7 +93,7 @@
                     <label for="dni" class="w-100 col-form-label text-left">Calificación del Riesgo:</label>
                     <div class="w-100  position-relative ">
                         <div class="w-100 ">
-                            <select class="form-control input-tpp" name="riesgo">
+                            <select class="form-control input-tpp" id="riesgo" (change)="onSelectCalificacionRiesgo()">
                                 <option *ngFor="let riesg of listadoResigos" value="{{ riesg.id }}" [selected]="riesg.id == riesgoID" >{{ riesg.riesgo }}</option>
                             </select>
                         </div>
@@ -98,13 +105,13 @@
                     <div class="col-sm-6">
                         <label for="nombre" class="w-100  col-form-label text-left ">Fecha de Registro:</label>
                         <div class="w-100 ">
-                            <input style="text-align: center;" id="fecharegistro" class="form-control input-tpp" type="text" value="">
+                            <input style="text-align: center;" id="fecharegistro" class="form-control input-tpp" type="text" value="{{ fechaRegistro | date: 'dd/MM/YYYY' }}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label for="dni" class="w-100 col-form-label text-left">Usuario de Registro:</label>
                         <div class="w-100 position-relative text-right ">
-                            <input style="text-align: center;" id="usuarioRegistro" class="form-control input-tpp" type="text">
+                            <input style="text-align: center;" id="usuarioRegistro" class="form-control input-tpp" type="text" value="{{ usuarioLogin }} ">
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 export class Persona{
+    id?:number;
     ruc?:string; 
     razonsocial?:string;
     nombrecomercial?:string;
@@ -37,6 +38,9 @@ export class Persona{
     codigosap?:string;
     usuariocreadorid?:number;
     cpcUsuarioBloquea?:string;
+    instruccionrecibida?:string;
+    fecharegistro?:Date;
+
 
     tipo_documento?:string;
     razon_social?:string;
@@ -49,5 +53,12 @@ export class Persona{
     tasaintereslibro?:string;
     tasainteresespecial?:string;
     calificacion?:number;
-   
+
+    idempresaarchivo?:number;
+    empresaarchivo?:string;
+    customerservice1?:string;
+    customerservice2?:string;
+    fechaaniversario?:Date;
+    grupoempresarial?:string;
+    direccionfiscal2?:string;
 }

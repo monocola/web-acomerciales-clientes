@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GlobalClient } from 'src/app/commons/Clienteglobal';
+import { Comerciales } from 'src/app/generar-cliente-datos-comerciales/comerciales';
 import { PlazoCredito } from 'src/app/model/plazocredito';
 import { Riesgo } from 'src/app/model/riesgo';
 import { EstadoSuspension } from 'src/app/model/suspension';
@@ -22,6 +23,7 @@ declare var $: any;
 export class EditarClienteDatosFiancierosComponent implements OnInit {
 
   obtenerdatos_contenedor;
+  notificacionGlobal: {};
   statusEditable = true;
   listaSuspensiones: any;
   listaEmpSusp: any;
@@ -32,13 +34,19 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
   tasaSeleccion: any;
   riesgoSeleccion: any;
   selectedTipos: EmpresaSuspendedora[];
-  fechaActual:Date;
-  usuarioLogin:string;
-  riesgoID:number;
-  globalSuspendidoPMA?:number;
-  globalSuspendidoTPP?:number;
-  globalSuspendidoTPPT?:number;
-  globalSuspendidoTPPAD?:number;
+  fechaActual: Date;
+  usuarioLogin: string;
+  riesgoID: number;
+  estadoSuspendido: number;
+  globalSuspendidoPMA: number;
+  globalSuspendidoTPP: number;
+  globalSuspendidoTPPT: number;
+  globalSuspendidoTPPAD: number;
+  motivosuspension: string;
+  plazocreditoid:number;
+  fechaRegistro:Date;
+
+
 
 
   constructor(private suspensionService: EstadoSuspensionService,
@@ -48,7 +56,8 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
     private riesgoService: RiesgoService,
     private config: GlobalClient,
     public store: StoreService,
-    public datepipe: DatePipe) {
+    public datepipe: DatePipe,
+    private comerciales: Comerciales) {
 
   }
 
@@ -59,19 +68,42 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
     this.usuarioLogin = localStorage.getItem("usurariologin");
     const obj = JSON.parse(JSON.stringify(this.store.cliente));
     var intereslibro = obj.tasaintereslibro.toFixed(2);
-    $("#tasaintereslibro").val(intereslibro); 
+    $("#tasaintereslibro").val(intereslibro);
     var tasainteresespecial = obj.tasainteresespecial.toFixed(2);
     $("#tasainteresespecial").val(tasainteresespecial);
     this.riesgoID = obj.calificacion;
     const fecharegistro = this.datepipe.transform(obj.fechacreacion, 'dd/MM/yyyy');
     $("#usuarioRegistro").val(obj.usuariocreadorid).prop("disabled", true);
     $("#fecharegistro").val(fecharegistro).prop("disabled", true);
-    alert(obj.globalSuspendidoPMA);
-    this.globalSuspendidoPMA = obj.globalSuspendidoPMA; 
-    this.globalSuspendidoTPP = obj.globalSuspendidoTPP; 
-    this.globalSuspendidoTPPT = obj.globalSuspendidoTPPT; 
-    this.globalSuspendidoTPPAD = obj.globalSuspendidoTPPAD; 
+    this.fechaRegistro = obj.fecharegistro;
+    
 
+    
+    this.globalSuspendidoPMA          =         obj.bloqueopma;
+    this.globalSuspendidoTPP          =         obj.bloqueotpp;
+    this.globalSuspendidoTPPT         =         obj.bloqueogap;
+    this.globalSuspendidoTPPAD        =         obj.bloqueoapl;
+    this.estadoSuspendido             =         obj.suspendido;
+    this.motivosuspension             =         obj.motivobloqueo;
+    this.plazocreditoid               =         obj.plazocredito;
+
+    this.config.setGlobalEstadoSuspension(this.estadoSuspendido);
+    this.config.setGlobalSuspendidoPMA(this.globalSuspendidoPMA);
+    this.config.setGlobalSuspendidoTPP(this.globalSuspendidoTPP);
+    this.config.setGlobalSuspendidoTPPT(this.globalSuspendidoTPPT);
+    this.config.setGlobalSuspendidoTPPAD(this.globalSuspendidoTPPAD);
+    this.config.setGlobalMotivoSuspension(this.motivosuspension);
+    this.config.setGlobalPlazoCreditoId(this.plazocreditoid);
+    this.config.setGlobalTasaInteresLibroId(intereslibro);
+    this.config.setGlobalTasaInteresEspecial(tasainteresespecial);
+
+    
+    $("#motivosuspension").val(this.motivosuspension);
+    this.mensajeGlobalNotificacion("warning", "", false);
+    $("#instruccionrecibida").val(obj.instruccionrecibida);
+    
+    
+    //alert(this.plazocreditoid);
 
     var objEstadoSuspension = new EstadoSuspension();
     this.suspensionService.obtenerEstadoSuspension(objEstadoSuspension).subscribe(
@@ -83,72 +115,110 @@ export class EditarClienteDatosFiancierosComponent implements OnInit {
     this.empSuspService.obtenerEmpresasSusp(objEmpSusp).subscribe(
       (dataEmpSusp) => {
         this.listaEmpSusp = dataEmpSusp;
-        console.log("empresas: ==>" + JSON.stringify(this.listaEmpSusp));
       })
 
-    var objPlazoCredito = new PlazoCredito();
-    this.plazocredito.obtenerPlazoCredito(objPlazoCredito).subscribe(
-      (dataPlazoCredito) => {
-        this.listaPlazocredito = dataPlazoCredito;
-      })
-
-    var objTasaInt = new TasaInteresL();
-    this.tasaService.obtenerTasasInteresesL(objTasaInt).subscribe(
-      (dataTasaInteresL) => {
-        this.tasaInteresListado = dataTasaInteresL;
-      })
-
-    var objRiesgo = new Riesgo();
-    this.riesgoService.obtenerRiesgos(objRiesgo).subscribe(
-      (dataRiesgo) => {
-        this.listadoResigos = dataRiesgo;
-      })
-
+      var objPlazoCredito = new PlazoCredito();
+      this.plazocredito.obtenerPlazoCreditoOnPremise(objPlazoCredito).subscribe(
+        (dataPlazoCredito) => {
+          this.listaPlazocredito = dataPlazoCredito;
+        })
+  
+      var objTasaInt = new TasaInteresL();
+      this.tasaService.obtenerTasasInteresesL(objTasaInt).subscribe(
+        (dataTasaInteresL) => {
+          this.tasaInteresListado = dataTasaInteresL;
+        })
+  
+      var objRiesgo = new Riesgo();
+      this.riesgoService.obtenerRiesgosOnPremise(objRiesgo).subscribe(
+        (dataRiesgo) => {
+          this.listadoResigos = dataRiesgo;
+        })
 
   }
-  onSelectPlazoCredito(pcredito: PlazoCredito) {
-    this.config.setGlobalPlazoCreditoId(pcredito.id);
+  onSelectPlazoCredito(pcredito) {
+    var plazodecredito = ((document.getElementById("plazodecredito") as HTMLInputElement).value);
+    var plazoid = Number(plazodecredito);
+    this.config.setGlobalPlazoCreditoId(plazoid);
   }
 
   onSelectTasaInteresL(tsaInteresL: TasaInteresL) {
     this.config.setGlobalTasaInteresLibroId(tsaInteresL.id);
   }
   onSelectRiesgo(riesgo: Riesgo) {
-    this.config.setGlobalCalificacionRiesgoId(riesgo.id);
+    
   }
 
   cambiarTipoSuspension(id) {
-    this.config.setGlobalEstadoSuspension(id);
+    if (id == 1) {
+      this.mensajeGlobalNotificacion("warning", "", false);
+      this.config.setGlobalEstadoSuspension(0);
+    } else if (id == 2) {
+      var motivosuspension = ((document.getElementById("motivosuspension") as HTMLInputElement).value);
+      if (motivosuspension == "" || motivosuspension == null) {
+        this.mensajeGlobalNotificacion("warning", "Debe ingresar un motivo de suspensión.", true);
+      }else{
+        this.mensajeGlobalNotificacion("warning", "", false);
+      }
+
+      if ((this.globalSuspendidoPMA == 1 || this.globalSuspendidoTPP == 1 ||
+        this.globalSuspendidoTPPT == 1 || this.globalSuspendidoTPPAD == 1) && (this.estadoSuspendido == 1)) {
+        this.mensajeGlobalNotificacion("warning", "Debe ingresar un motivo de suspensión. 1", true);
+      }
+      this.config.setGlobalEstadoSuspension(1);
+    }
+
+
   }
 
   enviarMotivoSuspension(evt) {
-    this.config.setGlobalMotivoSuspension(evt.target.value);
+    var motivosuspension = ((document.getElementById("motivosuspension") as HTMLInputElement).value);
+    if (motivosuspension == "" && (this.estadoSuspendido == 1)) {
+      this.mensajeGlobalNotificacion("warning", "Debe ingresar un motivo de suspensión.", true);
+    } else {
+      this.mensajeGlobalNotificacion("warning", "", false);
+      this.config.setGlobalMotivoSuspension(evt.target.value);
+    }
+
   }
 
   enviarInstruccionRecibida(evt) {
     this.config.setGlobalInstruccionRecibida(evt.target.value);
   }
 
+  enviarTasaInteresLibro(evt){
+    this.config.setGlobalTasaInteresLibroId(evt.target.value);
+  }
+
   enviarTasaInteresEspecial(evt) {
     this.config.setGlobalTasaInteresEspecial(evt.target.value);
   }
 
- 
-  seleccionarListadoEmp(){
-      var listadoTiposCadena = [];
-      if(listadoTiposCadena == []){
 
+  seleccionarListadoEmp(id) {
+    if ($("#tipoempresa" +  id).is(':checked')) {
+      this.comerciales.enviarEmpresaSuspendederaPorID(id, 1);  
       }else{
-        this.selectedTipos.forEach(element => {
-          listadoTiposCadena.push(element.id);
-          this.config.setGlobalListadoEmpSuspen(listadoTiposCadena.toString());
-        });
-      }
-      
-  
+      this.comerciales.enviarEmpresaSuspendederaPorID(id, 0);
+      } 
+
+  }
+
+  onSelectCalificacionRiesgo(){
+    var riesgo = ((document.getElementById("riesgo") as HTMLInputElement).value);
+    var riesgoid = Number(riesgo);
+    this.config.setGlobalCalificacionRiesgoId(riesgoid);
+  }
+
+ 
+  mensajeGlobalNotificacion(tipo, mensaje, view) {
+    this.notificacionGlobal = {
+      type: tipo,
+      message: [{ mensaje: mensaje }],
+      show: view
     }
+  }
 
 
-  
 
 }

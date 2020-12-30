@@ -89,7 +89,7 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
         this.listadoTipoDocumentos = dataTipoDocumentos;
         //console.log("tipo de documentos: " + JSON.stringify(this.listadoTipoDocumentos));
       }, (error) => {
-        console.log("tipo de documentos error: " + JSON.stringify(error));
+        //console.log("tipo de documentos error: " + JSON.stringify(error));
       })
 
   }
@@ -118,12 +118,12 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
     this.tipodeDocumentoService.obtenerTipoDocumento(objTipoDocumento).subscribe(
       (dataTipoDocumentos) => {
         this.listadoTipoDocumentos = dataTipoDocumentos;
-        console.log("tipo de documentos: " + JSON.stringify(this.listadoTipoDocumentos));
+        //console.log("tipo de documentos: " + JSON.stringify(this.listadoTipoDocumentos));
       })
   }
 
   onTodayClick($event) {
-    console.log($event);
+    //console.log($event);
   }
 
   close() {
@@ -164,7 +164,7 @@ export class GenerarClienteDatosGeneralesComponent implements OnInit {
                 this.ruc = Number(inputBusqueda);
                 this.empresaSunatService.obtenerEmpresaSunat(this.ruc)
                   .subscribe(data => {
-                    console.log(data)
+                    //console.log(data)
                     this.empresaSunat = data;
           
           

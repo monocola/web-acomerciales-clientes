@@ -107,7 +107,7 @@ export class RegistrarClienteComponent implements OnInit {
   }
 
   onTodayClick($event) {
-    console.log($event);
+    //console.log($event);
   }
 
   close() {

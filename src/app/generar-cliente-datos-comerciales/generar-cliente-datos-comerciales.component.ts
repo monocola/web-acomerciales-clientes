@@ -75,13 +75,7 @@ export class GenerarClienteDatosComercialesComponent implements OnInit {
         this.listarTipoOperadores = dataOperadores;
       })
 
-      /* ****Inicio de pruebas **** */
-     
-
-
-       /* ****Fin de pruebas **** */
-
-
+   
   }
   
   search(event) {

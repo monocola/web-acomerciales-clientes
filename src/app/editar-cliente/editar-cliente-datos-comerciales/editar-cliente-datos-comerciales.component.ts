@@ -83,6 +83,7 @@ export class EditarClienteDatosComercialesComponent implements OnInit {
     $("#otrooperador").val(obj.otrooperador);
     this.config.setGlobalProductoId(obj.productoid);
     this.vistamensaje = 0;
+    this.config.setGlobalEjecutivo(nombreUsuario);
     this.config.setGlobalEsAgenteAduana(this.esagenteaduana);
     this.config.setGlobalEsAgenteCarga(this.esagentecarga);
     this.config.setGlobalEsOperadorLogistico(this.esoperadorlogistico);
@@ -91,18 +92,10 @@ export class EditarClienteDatosComercialesComponent implements OnInit {
     this.config.setGlobalEsLineaNaviera(this.eslineanaviera);
     this.config.setGlobalEsAgenteMaritimo(this.esagentemaritimo);
     this.config.setGlobalOtroTipoOperadorEspecificar(this.otrooperador);
-    
-    //alert(obj.eslineanaviera);
-    /*
-        estransportista           
-        esoperadorlogistico       
-        esagentecarga              
-        esagenteaduana      
-        esdeposito     
-        esagentemaritimo 
-        eslineanaviera   
-    */
 
+    
+    
+   
 
     var objProd = new Producto();
     this.productoService.obtenerProductosOnpremise(objProd).subscribe(
@@ -124,7 +117,6 @@ export class EditarClienteDatosComercialesComponent implements OnInit {
     this.tipoOpService.obtenerTipoOperadores(objTipoOperador).subscribe(
       (dataOperadores) => {
         this.listarTipoOperadores = dataOperadores;
-        console.log("operadores: ===>" + JSON.stringify(this.listarTipoOperadores));
 
       })
 

@@ -117,42 +117,7 @@ export class EditarClienteComponent implements OnInit {
         $("#bodyDatosGenerales").show();
         $("#bodyComercial").hide();
         $("#bobyFinanciera").hide();
-/*
-        if (typeof this.config.getGlobalTipoDocumento() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar el Tipo de Documento.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalNumeroDocumento() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar el Numero de Documento.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalNombreRazonSocial() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar una Razón Social.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalNombreComercial() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar un Nombre Comercial.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalFechaDeInscripcion() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar una Fecha de Inscripción.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalCondicion() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar una Condición.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalEstado() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar un estado.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalDireccionFiscal() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar una Dirección Fiscal.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalActividadEconomica() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar la Actividad Económica.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalCodigoSap() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar el código SAP.", true);
-          this.pestana = 1;
-        } else if (typeof this.config.getGlobalDominio() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar un Dominio.", true);
-          this.pestana = 1;
-        } else {
-*/
+
           this.pestana = 2;
           this.mensajeGlobalNotificacion("warning", "", false);
           $("#pestanaDatos").removeClass('active');
@@ -174,29 +139,7 @@ export class EditarClienteComponent implements OnInit {
         break;
       }
       case 2: {
-/*
-        if (typeof this.config.getGlobalProductoId() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe seleccionar un producto.", true);
-          this.pestana = 2;
-        } else if (typeof this.config.getGlobalSectorId() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe seleccionar un Sector.", true);
-          this.pestana = 2;
-        } else if (typeof this.config.getGlobalEjecutivo() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe ingresar el mombre del ejecutivo.", true);
-          this.pestana = 2;
-        } else if (typeof this.config.getGlobalCategoriaClienteProveedor() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe Elegir una categoría.", true);
-          this.pestana = 2;
-        } else if (typeof this.config.getGlobalListadoTipoOperadores() === 'undefined') {
-          this.mensajeGlobalNotificacion("warning", "Debe seleccionar el operador.", true);
-          this.pestana = 2;
-        } else if (this.config.getGlobalOtroTipoOperador() == 1) {
-          if (typeof this.config.getGlobalOtroTipoOperadorEspecificar() === 'undefined') {
-            this.mensajeGlobalNotificacion("warning", "Debe especificar el tipo de operador.", true);
-          }
-          this.pestana = 2;
-        } else {
-*/
+
           this.pestana = 3;
           this.mensajeGlobalNotificacion("warning", "", false);
           $("#pestanaDatos").removeClass('active');
@@ -212,7 +155,7 @@ export class EditarClienteComponent implements OnInit {
           $("#bodySap").hide();
           $("#bodyComercial").hide();
           $("#bobyFinanciera").show();
-  /*      } */
+
 
         break;
 
@@ -231,9 +174,65 @@ export class EditarClienteComponent implements OnInit {
 
   guardarCliente() {
 
-   /* actualizacion de informacion de cliente */
-  
+   /* ACTUALIZACION DE INFORMACIÓN */
+   
+      this.mensajeGlobalNotificacion("warning", "", false);
+      var objPersona = new Persona();
+      objPersona.id                              =          this.config.getGlobalEmpresaID();
+      objPersona.tipodocumento                   =          this.config.getGlobalTipoDocumento();
+      objPersona.ruc                             =          this.config.getGlobalNumeroDocumento();
+      objPersona.razonsocial                     =          this.config.getGlobalNombreRazonSocial();
+      objPersona.nombrecomercial                 =          this.config.getGlobalNombreComercial()
 
+      objPersona.inicioactividad                 =          this.config.getGlobalFechaDeInscripcion();
+      objPersona.direccionfiscal                 =          this.config.getGlobalDireccionFiscal();
+      objPersona.actividadeconomica              =          this.config.getGlobalActividadEconomica();
+      objPersona.dominio                         =          this.config.getGlobalDominio();
+      objPersona.productoid                      =          this.config.getGlobalProductoId();  
+      objPersona.ejecutivo                       =          this.config.getGlobalEjecutivo();
+      objPersona.escliente                       =          1;
+      objPersona.esproveedor                     =          this.config.getGlobalCategoriaClienteProveedor();          
+      
+      
+      objPersona.esagenteaduana                  =          this.config.getGlobalEsAgenteAduana();
+      objPersona.esagentecarga                   =          this.config.getGlobalEsAgenteCarga();
+      objPersona.esoperadorlogistico             =          this.config.getGlobalEsOperadorLogistico(); 
+      objPersona.esdeposito                      =          this.config.getGlobalEsDeposito();
+      objPersona.estransportista                 =          this.config.getGlobalEsTransportista();
+      objPersona.eslineanaviera                  =          this.config.getGlobalEsLineaNaviera();
+      objPersona.esagentemaritimo                =          this.config.getGlobalEsAgenteMaritimo(); 
+
+   
+      objPersona.otrooperador                    =          this.config.getGlobalOtroTipoOperadorEspecificar(); 
+      objPersona.suspendido                      =          this.config.getGlobalEstadoSuspension();
+      objPersona.bloqueopma                      =          this.config.getGlobalSuspendidoPMA();
+      objPersona.bloqueotpp                      =          this.config.getGlobalSuspendidoTPP();
+      objPersona.bloqueoapl                      =          this.config.getGlobalSuspendidoTPPT();
+      objPersona.bloqueogap                      =          this.config.getGlobalSuspendidoTPPAD();
+      objPersona.motivobloqueo                   =          this.config.getGlobalMotivoSuspension();
+      objPersona.apellidopaterno                 =          "";
+      objPersona.apellidomaterno                 =          "";
+      objPersona.primernombre                    =          "";
+      objPersona.segundonombre                   =          "";
+      objPersona.ubigeo                          =          "";
+      objPersona.pais                            =          1;
+      objPersona.empresatipo                     =          3;
+      objPersona.estadosunat                     =          "00"; //this.cliente.getGlobalEstado();
+      objPersona.condicionsunat                  =          "00"; //this.cliente.getGlobalCondicion();
+      objPersona.usuariocreadorid                =          Number(localStorage.getItem("cpnID_Empresa"));
+      objPersona.cpcUsuarioBloquea               =          localStorage.getItem("usurariologin");  
+
+      console.log("Data por enviar: ===> " + JSON.stringify(objPersona));
+
+      this.personaService.actualizarPersonasOnPremise(objPersona).subscribe(
+        (empresaId) => {
+          console.log("1. respuesta actualizacion persona: " + empresaId);
+          if(empresaId == -1){
+            console.log("error de actualizacion persona: " + empresaId);
+          }else{
+            console.log("persona actualizada.");
+          }
+        })
 
   }
 

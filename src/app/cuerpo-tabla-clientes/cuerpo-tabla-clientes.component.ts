@@ -56,7 +56,7 @@ export class CuerpoTablaClientesComponent implements OnInit {
       (dataListadoClientes) => {
         this.clientes = dataListadoClientes;
       }, (error) => {
-        console.log("Clientes error: " + JSON.stringify(error));
+        //console.log("Clientes error: " + JSON.stringify(error));
       })
 
   }
@@ -81,10 +81,10 @@ export class CuerpoTablaClientesComponent implements OnInit {
 
   collapse($event: { target: HTMLInputElement }) {
     const node = $event.target;
-    console.log(node);
+    //console.log(node);
     const lista = node.parentElement.parentElement.parentElement;
-    console.log(lista);
-    console.log(lista.classList);
+    //console.log(lista);
+    //console.log(lista.classList);
     const head = lista.firstChild as HTMLElement;
     if (lista.classList.contains('on')) {
       lista.classList.remove('on');
@@ -108,7 +108,8 @@ export class CuerpoTablaClientesComponent implements OnInit {
       showHeader: false
     });
   }
-  abrirFileCliente() {
+  abrirFileCliente(cliente) {
+    this.store.setCliente(cliente);
     this.ref = this.dialogService.open(FileClienteComponent, {
       //width: '50%',
       styleClass: 'comisionfile',

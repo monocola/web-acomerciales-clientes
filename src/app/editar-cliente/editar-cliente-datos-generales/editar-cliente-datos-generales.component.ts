@@ -69,9 +69,7 @@ export class EditarClienteDatosGeneralesComponent implements OnInit {
     this.tipodeDocumentoService.obtenerTipoDocumento(objTipoDocumento).subscribe(
       (dataTipoDocumentos) => {
         this.listadoTipoDocumentos = dataTipoDocumentos;
-        //console.log("tipo de documentos: " + JSON.stringify(this.listadoTipoDocumentos));
       }, (error) => {
-        console.log("tipo de documentos error: " + JSON.stringify(error));
       })
 
     const obj = JSON.parse(JSON.stringify(this.store.cliente));
@@ -82,7 +80,7 @@ export class EditarClienteDatosGeneralesComponent implements OnInit {
     $("#fechainscripcion").val(obj.inicioactividad).prop("disabled", true);
     $("#condicion").val(obj.condicionsunat).prop("disabled", true);
     $("#estado").val(obj.estadosunat).prop("disabled", true);
-    $("#direccionfiscal").val(obj.direccionfiscal);
+    $("#direccionfiscal").val(obj.direccionfiscal).prop("disabled", true);
     $("#codigosap").val(obj.codigosap).prop("disabled", true);
     $("#dominio").val(obj.dominio);
     this.tipoDocumentoID = obj.tipodocumento;
@@ -90,10 +88,13 @@ export class EditarClienteDatosGeneralesComponent implements OnInit {
 
     /* almacenamiento de atributos en variable global  */
     this.config.setGlobalEmpresaID(obj.id);
+    this.config.setGlobalTipoDocumento(this.tipoDocumentoID);
     this.config.setGlobalNumeroDocumento(obj.numerodocumento);
     this.config.setGlobalNombreRazonSocial(obj.razon_social);
     this.config.setGlobalNombreComercial(obj.nombrecomercial);
     this.config.setGlobalDireccionFiscal(obj.direccionfiscal);
+    this.config.setGlobalFechaDeInscripcion(obj.inicioactividad);
+    this.config.setGlobalActividadEconomica(obj.actividadeconomica);
     this.config.setGlobalDominio(obj.dominio);
        
 
@@ -168,7 +169,7 @@ export class EditarClienteDatosGeneralesComponent implements OnInit {
   enviarTipoDocumento(){
     var tipodocumento = ((document.getElementById("tipodocumento") as HTMLInputElement).value);
     this.tipodoc = Number(tipodocumento);
- 
+  
   if (this.tipodoc == 0) {
       this.config.setGlobalTipoDocumento(null);
     } else {

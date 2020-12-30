@@ -64,9 +64,9 @@ export class ClientesComponent implements OnInit {
     this.personaService.obtenerClientePorNumeroDocumento(objPersona).subscribe(
     (dataListadoClientes) => {
       this.clientes = dataListadoClientes;
-      console.log("cliente: " +  JSON.stringify(this.clientes))
+      //console.log("cliente: " +  JSON.stringify(this.clientes))
     }, (error) =>{
-      console.log("Clientes error: " + JSON.stringify(error));
+      //console.log("Clientes error: " + JSON.stringify(error));
     })
    
   }

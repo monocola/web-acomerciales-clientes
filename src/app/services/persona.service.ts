@@ -62,4 +62,27 @@ export class PersonaService {
     );
   }
 
+  actualizarPersonasOnPremise(persona: Persona): Observable<Persona> {
+    return this.http.post<Persona>(`${this.baseEndpointPersonaOnPremise}/update`, persona, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        if (e.status == 404) {
+          return throwError(e);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+  obtenerClienteFilePorID(persona: Persona): Observable<Persona> {
+    return this.http.post<Persona>(`${this.baseEndpointPersonaOnPremise}/filecompany`, persona, { headers: this.httpHeaders }).pipe(
+      catchError(e => {
+        if (e.status == 404) {
+          return throwError(e);
+        }
+        return throwError(e);
+      })
+    );
+  }
+
+
 }

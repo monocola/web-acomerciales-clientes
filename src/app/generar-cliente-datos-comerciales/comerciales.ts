@@ -8,13 +8,13 @@ import { StoreService } from "../services/store.service";
 export class Comerciales {
 
     constructor(private store: StoreService,
-                private config: GlobalClient) { }
+        private config: GlobalClient) { }
 
     enviarTiposOperadores(listado: string) {
         var array = JSON.parse("[" + listado + "]");
         array.forEach(tipo => {
 
-           
+
             switch (tipo) {
                 case 1:
                     this.store.cliente.setGlobalEsAgenteAduana(1);
@@ -58,39 +58,39 @@ export class Comerciales {
         this.store.cliente.setGlobalEsTransportista(0);
         this.store.cliente.setGlobalEsLineaNaviera(0);
         this.store.cliente.setGlobalEsAgenteMaritimo(0);
-    }   
-    
+    }
+
     enviarTiposOperadoresPorID(tipo: number, value: number) {
-                  
-            switch (tipo) {
-                case 1:
-                    this.config.setGlobalEsAgenteAduana(value);
-                    break;
-                case 2:
-                    this.config.setGlobalEsAgenteCarga(value);
-                    break;
-                case 3:
-                    this.config.setGlobalEsOperadorLogistico(value);
-                    break;
-                case 4:
-                    this.config.setGlobalEsDeposito(value);
-                    break;
-                case 5:
-                    this.config.setGlobalEsTransportista(value);
-                    break;
-                case 6:
-                    this.config.setGlobalEsLineaNaviera(value);
-                    break;
-                case 7:
-                    this.config.setGlobalEsAgenteMaritimo(value);
-                    break;
-                default:
-                    break;
-            }
+
+        switch (tipo) {
+            case 1:
+                this.config.setGlobalEsAgenteAduana(value);
+                break;
+            case 2:
+                this.config.setGlobalEsAgenteCarga(value);
+                break;
+            case 3:
+                this.config.setGlobalEsOperadorLogistico(value);
+                break;
+            case 4:
+                this.config.setGlobalEsDeposito(value);
+                break;
+            case 5:
+                this.config.setGlobalEsTransportista(value);
+                break;
+            case 6:
+                this.config.setGlobalEsLineaNaviera(value);
+                break;
+            case 7:
+                this.config.setGlobalEsAgenteMaritimo(value);
+                break;
+            default:
+                break;
+        }
     }
 
     enviarEmpresaSuspendederaPorID(tipo: number, value: number) {
-                  
+
         switch (tipo) {
             case 1:
                 this.config.setGlobalSuspendidoPMA(value);
@@ -107,7 +107,21 @@ export class Comerciales {
             default:
                 break;
         }
-}
+
+    }
+
+    validarEmpSuspension(): number{
+
+        if (this.config.getGlobalSuspendidoPMA() == 1 ||
+            this.config.getGlobalSuspendidoTPP() == 1 ||
+            this.config.getGlobalSuspendidoTPPT() == 1 ||
+            this.config.getGlobalSuspendidoTPPAD() == 1)
+        {
+            return 1;    
+        }else{
+            return 0;
+        }
+    }
 
 
 }

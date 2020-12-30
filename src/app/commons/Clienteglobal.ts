@@ -26,7 +26,7 @@ export class GlobalClient {
     globalListadoEmpSuspen: string;
     globalOtroTipoOperador: number;
     globalOtroTipoOperadorEspecificar: string;
-    globalEstadoSuspension: boolean;
+    globalEstadoSuspension: number;
     globalMotivoSuspension: string;
     globalInstruccionRecibida: string;
     globalPlazoCreditoId: number;
@@ -45,6 +45,7 @@ export class GlobalClient {
 	globalEsDeposito?:number;				
 	globalEsAgenteMaritimo?:number;			
     globalEsLineaNaviera?:number;	
+    
     
     globalSuspendidoPMA?:number;
     globalSuspendidoTPP?:number;
@@ -72,7 +73,7 @@ export class GlobalClient {
         this.globalListadoEmpSuspen = "";
         this.globalOtroTipoOperador = 0;
         this.globalOtroTipoOperadorEspecificar = "";
-        this.globalEstadoSuspension = false;
+        this.globalEstadoSuspension = 0;
         this.globalMotivoSuspension = "";
         this.globalInstruccionRecibida = "";
         this.globalPlazoCreditoId = 0;
@@ -236,10 +237,10 @@ export class GlobalClient {
         return this.globalOtroTipoOperadorEspecificar;
     }
 
-    setGlobalEstadoSuspension(estadosuspension: boolean) {
+    setGlobalEstadoSuspension(estadosuspension: number) {
         this.globalEstadoSuspension = estadosuspension;
     }
-    getGlobalEstadoSuspension(): boolean {
+    getGlobalEstadoSuspension(): number {
         return this.globalEstadoSuspension;
     }
     setGlobalMotivoSuspension(motivosuspension: string) {
